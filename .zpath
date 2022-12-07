@@ -1,0 +1,30 @@
+# The $PATH should be in zshenv, but can be reset in /etc/zprofile, so we also set it in .zprofile...
+# Without repeating ourselves.
+if [[ -e /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi;
+
+# Be safe with MacOS paths.. yeah
+if [[ -e "${HOME}/Library/Python" ]]; then
+  for entry in $(find "${HOME}/Library/Python" -maxdepth 2 -iname 'bin' -type d); do
+    export PATH="${entry}:${PATH}"
+  done
+fi
+
+if [[ -e "$HOME/.local/bin" ]];then
+  export PATH=~/.local/bin:$PATH
+fi
+if [[ -e "$HOME/go/bin" ]];then
+  export PATH=~/go/bin:${PATH}
+fi
+
+export NVM_DIR=~/.nvm
+if [[ -e "$HOME/.tfenv/bin" ]];then
+  export PATH=~/.tfenv/bin:$PATH
+fi
+if [[ -e "$HOME/.pyenv/bin" ]];then
+  export PATH=~/.pyenv/bin:$PATH
+fi
+if [[ -e "$HOME/.pyenv/shims" ]];then
+  export PATH=~/.pyenv/shims:$PATH
+fi
