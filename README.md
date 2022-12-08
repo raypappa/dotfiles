@@ -31,6 +31,11 @@ git clone --depth=1 https://github.com/tfutils/tfenv.git ~/.tfenv
 ## [PyEnv](https://github.com/pyenv/pyenv)
 ```bash
 curl https://pyenv.run | bash
+sudo apt update; sudo apt install make build-essential libssl-dev zlib1g-dev \
+libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncursesw5-dev \
+xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+pyenv install 3.10.2
+pyenv global 3.10.2
 ```
 ## [RBEnv](https://github.com/rbenv/rbenv)
 ```bash
@@ -54,4 +59,9 @@ Alternatively this should be a static link to the latest deb package
 wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.deb
 sudo apt install ./nvim-linux64.deb
 rm nvim-linux64.deb
+```
+
+## Rust
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
