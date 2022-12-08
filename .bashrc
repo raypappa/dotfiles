@@ -185,4 +185,3 @@ if [[ -e ~/.cargo/env ]];then
 fi
 
 export BASHRC_LOADED=1
-. "$HOME/.cargo/env"
