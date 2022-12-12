@@ -11,7 +11,6 @@ files="
 ~/.profile
 ~/.screenrc
 ~/.tmux.conf
-~/.vimrc
 ~/.zcompdump
 ~/.zpath
 ~/.zprofile
