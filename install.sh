@@ -46,6 +46,7 @@ echo Installing Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 npm install -g aws-azure-login
+ln -s $(which aws-azure-login) ~/.local/bin/aws-azure-login
 
 echo Installing AWS CLI
 ./aws.install.sh
