@@ -1,4 +1,3 @@
-set -x
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -185,7 +184,7 @@ if [[ -e ~/.cargo/env ]];then
   . ~/.cargo/env
 fi
 
-if [[ -n "$WSL_DISTRO_NAME" ]];then
+if [[ "$WSL_DISTRO_NAME" == "Ubuntu" ]];then
   DOCKER_DISTRO="Ubuntu"
   DOCKER_DIR=/mnt/wsl/shared-docker
   DOCKER_SOCK="$DOCKER_DIR/docker.sock"
