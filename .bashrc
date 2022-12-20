@@ -185,7 +185,6 @@ if [[ -e ~/.cargo/env ]];then
 fi
 
 if [[ "$WSL_DISTRO_NAME" == "Ubuntu" || "$WSL_DISTRO_NAME" == "Debian" ]];then
-  set -x
   DOCKER_DISTRO="$WSL_DISTRO_NAME"
   DOCKER_DIR=/mnt/wsl/shared-docker
   DOCKER_SOCK="$DOCKER_DIR/docker.sock"
@@ -197,7 +196,6 @@ if [[ "$WSL_DISTRO_NAME" == "Ubuntu" || "$WSL_DISTRO_NAME" == "Debian" ]];then
   if [ ! -S "$DOCKER_SOCK" ]; then
     /mnt/c/Windows/System32/wsl.exe -d $DOCKER_DISTRO sh -c "nohup sudo -b dockerd < /dev/null > $DOCKER_DIR/dockerd.log 2>&1"
   fi
-  set +x
 fi
 
 export BASHRC_LOADED=1
