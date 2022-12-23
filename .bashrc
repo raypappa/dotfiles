@@ -173,7 +173,7 @@ if [[ -e '/mnt/c/Windows/explorer.exe' ]];then
   export BROWSER='/mnt/c/Windows/explorer.exe'
 fi
 
-/usr/bin/keychain -q --nogui $HOME/.ssh/id_rsa
+/usr/bin/keychain -q --nogui $HOME/.ssh/id_ed25519
 source $HOME/.keychain/$(hostname)-sh
 
 if [[ "$(pwd)" == '/mnt/c/Windows/system32' ]];then
