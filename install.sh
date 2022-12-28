@@ -51,6 +51,10 @@ ln -s $(which aws-azure-login) ~/.local/bin/aws-azure-login
 echo Installing AWS CLI
 ./aws.install.sh
 
+# echo Installing lazydocker
+# curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+
+echo Installing Vim
 ./vim.install.sh
 
 echo Please restart terminal.
