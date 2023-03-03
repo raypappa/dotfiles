@@ -198,4 +198,7 @@ if [[ "$WSL_DISTRO_NAME" == "Ubuntu" || "$WSL_DISTRO_NAME" == "Debian" ]];then
   fi
 fi
 
+if [[ -e /usr/local/bin/aws_completer ]];then
+  complete -C '/usr/local/bin/aws_completer' aws
+fi
 export BASHRC_LOADED=1
