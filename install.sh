@@ -8,7 +8,6 @@ files="
 ~/.dircolors
 ~/.inputrc
 ~/.profile
-~/.screenrc
 ~/.tmux.conf
 ~/.zcompdump
 ~/.zpath
