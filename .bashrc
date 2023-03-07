@@ -201,4 +201,8 @@ fi
 if [[ -e /usr/local/bin/aws_completer ]];then
   complete -C '/usr/local/bin/aws_completer' aws
 fi
+
+if [[ -e  ~/.local/src/alacritty.bash ]];then
+  . ~/.local/src/alacritty.bash
+fi
 export BASHRC_LOADED=1
