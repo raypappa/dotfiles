@@ -39,3 +39,21 @@ Start-Process msiexec.exe -ArgumentList "/i `"C:\AWSCLIV2.msi`" /quiet" -Wait
 1. Installs Rust
 1. Configures NeoVim
 1. Installs symlinks
+
+### Docker
+Docker has some special stuff which is mostly preset but you'll need to configure the daemon and sudoers
+https://github.com/bowmanjd/docker-wsl
+`/etc/docker/daemon.json`
+```json
+{
+  "hosts": ["unix:///mnt/wsl/shared-docker/docker.sock"],
+  "iptables": false
+}
+```
+`/etc/sudoers.d/docker`
+```sudo
+%docker ALL = (root) NOPASSWD: /usr/bin/dockerd
+```
+
+### tmux
+started having issues with tmux. might need to override `TERM=xterm` instead of `alacritty`
