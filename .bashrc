@@ -122,6 +122,11 @@ fi
 
 ###############################################################################
 # Shell tooling
+
+if [[ -e ~/.bashrc.local ]];then
+  . ~/.bashrc.local
+fi
+
 if [[ -e /opt/homebrew/bin/brew ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi;
