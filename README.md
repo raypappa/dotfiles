@@ -56,4 +56,4 @@ https://github.com/bowmanjd/docker-wsl
 ```
 
 ### tmux
-started having issues with tmux. might need to override `TERM=xterm` instead of `alacritty`
+started having issues with tmux. might need to override `TERM=xterm-256color` instead of `alacritty`
