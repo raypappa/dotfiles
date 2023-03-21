@@ -18,6 +18,7 @@ files="
 "
 for file in $files ;do
   file="${file/#~/$HOME}"
+  
   if [ ! -e $file ];then
     filename=$(basename $file)
     echo "Installing symlink for $file"

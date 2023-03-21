@@ -1,6 +1,11 @@
 #!/bin/bash
 base_dir=~/.config/nvim
 
+pyenv virtualenv 3.10.2 neovim3
+pyenv activate neovim3
+pip install neovim
+pyenv deactivate
+
 if ! type nvim; then
   if grep -P --quiet '(?<=ID=)debian$' /etc/os-release; then
     sudo apt-get remove -y --purge vim*
