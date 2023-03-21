@@ -59,5 +59,3 @@ https://github.com/bowmanjd/docker-wsl
 started having issues with tmux. might need to override `TERM=xterm-256color` instead of `alacritty`
 
 ### TODO
-1. Add pyenv setup for neovim to install scripts https://github.com/deoplete-plugins/deoplete-jedi/wiki/Setting-up-Python-for-Neovim
-1. Add docker install/setup to a script
