@@ -8,7 +8,6 @@ files="
 ~/.dircolors
 ~/.inputrc
 ~/.profile
-~/.screenrc
 ~/.tmux.conf
 ~/.zcompdump
 ~/.zpath
@@ -46,10 +45,15 @@ echo Installing Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 npm install -g aws-azure-login
+ln -s $(which aws-azure-login) ~/.local/bin/aws-azure-login
 
 echo Installing AWS CLI
 ./aws.install.sh
 
+# echo Installing lazydocker
+# curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+
+echo Installing Vim
 ./vim.install.sh
 
 echo Please restart terminal.

@@ -122,6 +122,11 @@ fi
 
 ###############################################################################
 # Shell tooling
+
+if [[ -e ~/.bashrc.local ]];then
+  . ~/.bashrc.local
+fi
+
 if [[ -e /opt/homebrew/bin/brew ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi;
@@ -173,7 +178,7 @@ if [[ -e '/mnt/c/Windows/explorer.exe' ]];then
   export BROWSER='/mnt/c/Windows/explorer.exe'
 fi
 
-/usr/bin/keychain -q --nogui $HOME/.ssh/id_rsa
+/usr/bin/keychain -q --nogui $HOME/.ssh/id_ed25519
 source $HOME/.keychain/$(hostname)-sh
 
 if [[ "$(pwd)" == '/mnt/c/Windows/system32' ]];then
@@ -184,16 +189,25 @@ if [[ -e ~/.cargo/env ]];then
   . ~/.cargo/env
 fi
 
-if [[ -n "$WSL_DISTRO_NAME" ]];then
-  DOCKER_DISTRO="Ubuntu"
+if [[ "$WSL_DISTRO_NAME" == "Ubuntu" || "$WSL_DISTRO_NAME" == "Debian" ]];then
+  DOCKER_DISTRO="$WSL_DISTRO_NAME"
   DOCKER_DIR=/mnt/wsl/shared-docker
   DOCKER_SOCK="$DOCKER_DIR/docker.sock"
   export DOCKER_HOST="unix://$DOCKER_SOCK"
-  if [ ! -S "$DOCKER_SOCK" ]; then
+  if [ ! -d "$DOCKER_DIR" ]; then
     mkdir -pm o=,ug=rwx "$DOCKER_DIR"
     sudo chgrp docker "$DOCKER_DIR"
+  fi
+  if [ ! -S "$DOCKER_SOCK" ]; then
     /mnt/c/Windows/System32/wsl.exe -d $DOCKER_DISTRO sh -c "nohup sudo -b dockerd < /dev/null > $DOCKER_DIR/dockerd.log 2>&1"
   fi
 fi
 
+if [[ -e /usr/local/bin/aws_completer ]];then
+  complete -C '/usr/local/bin/aws_completer' aws
+fi
+
+if [[ -e  ~/.local/src/alacritty.bash ]];then
+  . ~/.local/src/alacritty.bash
+fi
 export BASHRC_LOADED=1

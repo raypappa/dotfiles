@@ -1,10 +1,12 @@
 require("mason").setup()
 
+-- removing "spectral" as it's broken install from cloning via ssh
+-- instead of https
 require("mason-lspconfig").setup({
   ensure_installed = {
-    "sumneko_lua", "bashls", "dockerls", "eslint", "jsonls", "tsserver",
+    "lua_ls", "bashls", "dockerls", "eslint", "jsonls", "tsserver",
     "marksman", "pyright", "ruby_ls", "taplo", "terraformls", "tflint",
-    "yamlls", "spectral"
+    "yamlls"
   },
   automatic_installation = false
 })
