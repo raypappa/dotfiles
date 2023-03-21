@@ -51,32 +51,32 @@ function _install_deps() {
   sudo apt upgrade -y
   sudo apt-get remove -y --purge 'vim*'
   sudo apt install -y \
-    libssl-dev \
-    git \
-    make \
+    apt-transport-https \
     build-essential \
-    zlib1g-dev \
-    libbz2-dev \
-    libreadline-dev \
-    libsqlite3-dev \
-    wget \
+    ca-certificates \
     curl \
-    llvm \
-    libncursesw5-dev \
-    xz-utils \
-    tk-dev \
-    libxml2-dev \
-    libxmlsec1-dev \
+    git \
+    keychain \
+    libbz2-dev \
+    libffi-dev \
     libffi-dev \
     liblzma-dev \
-    zip \
-    unzip \
-    apt-transport-https \
-    ca-certificates \
-    software-properties-common \
-    libffi-dev \
+    libncursesw5-dev \
+    libreadline-dev \
+    libsqlite3-dev \
+    libssl-dev \
+    libxml2-dev \
+    libxmlsec1-dev \
+    llvm \
+    make \
     nano \
-    keychain
+    software-properties-common \
+    tk-dev \
+    unzip \
+    wget \
+    xz-utils \
+    zip \
+    zlib1g-dev
 }
 
 function _pyenv_install() {
@@ -211,6 +211,7 @@ _vim_install
 _tflint_install
 
 . ~/.bashrc
+
 sudo locale-gen $LANG
 
 echo startup ssh agent
