@@ -143,8 +143,9 @@ function _docker_install() {
   sudo apt-get update
 
   echo '%docker ALL = (root) NOPASSWD: /usr/bin/dockerd' | tee docker
-  visudo -c -f docker && sudo mv docker /etc/sudoers.d/docker
-  sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+  sudo cvtsudoers -f sudoers -o /etc/sudoers.d/docker docker
+  rm docker
+  sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
   echo '{"hosts": ["unix:///mnt/wsl/shared-docker/docker.sock"], "iptables": false}' | sudo tee /etc/docker/daemon.json
 }
 
@@ -166,7 +167,7 @@ function _vim_install() {
   if ! type nvim; then
     if grep -P --quiet '(?<=ID_LIKE=)debian$' /etc/os-release; then
       wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.deb
-      sudo apt install ./nvim-linux64.deb
+      sudo apt install -y ./nvim-linux64.deb
       rm nvim-linux64.deb
       sudo update-alternatives --install /usr/local/bin/vim vim $(which nvim) 20
     fi
