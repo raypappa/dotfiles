@@ -210,4 +210,9 @@ fi
 if [[ -e  ~/.local/src/alacritty.bash ]];then
   . ~/.local/src/alacritty.bash
 fi
+
+if [[ -e ~/.local/share/bash-completion/task.bash ]];then
+  . ~/.local/share/bash-completion/task.bash
+fi
+
 export BASHRC_LOADED=1
