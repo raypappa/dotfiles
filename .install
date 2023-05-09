@@ -213,3 +213,10 @@ function _sam_cli_install() {
   sudo ./sam-installation/install
   rm -rf sam-installation aws-sam-cli-linux-x86_64.zip
 }
+
+function _taskfile_cli_install() {
+  sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b ~/.local/bin
+  mkdir -p ~/.local/share/bash-completion
+  wget https://raw.githubusercontent.com/go-task/task/main/completion/bash/task.bash -O ~/.local/share/bash-completion/task.bash
+
+}

@@ -21,6 +21,7 @@ _lazydocker_install
 _vim_install
 _tflint_install
 _sam_cli_install
+_taskfile_cli_install
 
 . ~/.bashrc
 
