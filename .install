@@ -91,7 +91,8 @@ function _install_deps() {
     wget \
     xz-utils \
     zip \
-    zlib1g-dev
+    zlib1g-dev \
+    tmux
 }
 
 function _pyenv_install() {
