@@ -162,7 +162,7 @@ function _docker_install() {
   sudo cvtsudoers -f sudoers -o /etc/sudoers.d/docker docker
   rm docker
   sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-  echo '{"hosts": ["unix:///mnt/wsl/shared-docker/docker.sock"], "iptables": false}' | sudo tee /etc/docker/daemon.json
+  echo '{"hosts": ["unix:///mnt/wsl/shared-docker/docker.sock"]}' | sudo tee /etc/docker/daemon.json
 }
 
 function _alacrity_termcap() {
