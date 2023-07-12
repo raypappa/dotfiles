@@ -12,8 +12,11 @@ pushd $(dirname $(realpath ~/.bashrc)) && git pull --rebase; popd
 
 . /usr/share/bash-completion/completions/git
 
-if [[ -z "${SSH_AGENT_PID}" ]] && [[ -z ${SSH_AUTH_SOCK} ]]; then
+if [[ ( -z "${SSH_AGENT_PID}"  && -z "${SSH_AUTH_SOCK}" ) ]]; then
+  echo Sourcing agent file
         . ~/.agent;
+        /usr/bin/keychain -q --nogui $HOME/.ssh/id_ed25519
+        source $HOME/.keychain/$(hostname)-sh
 fi;
 
 
@@ -178,8 +181,6 @@ if [[ -e '/mnt/c/Windows/explorer.exe' ]];then
   export BROWSER='/mnt/c/Windows/explorer.exe'
 fi
 
-/usr/bin/keychain -q --nogui $HOME/.ssh/id_ed25519
-source $HOME/.keychain/$(hostname)-sh
 
 if [[ "$(pwd)" == '/mnt/c/Windows/system32' ]];then
   cd ~
