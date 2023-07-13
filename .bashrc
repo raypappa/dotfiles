@@ -83,7 +83,11 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 parse_git_branch() {
-     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+  # git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+  local branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+  if [ -n "$branch" ];then
+    echo -en " \e[3;35m(${branch})\e[0m"
+  fi
 }
 
 if [ "$color_prompt" = yes ]; then
