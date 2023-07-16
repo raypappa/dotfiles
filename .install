@@ -158,12 +158,14 @@ function _docker_install() {
     $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
   sudo chmod a+r /etc/apt/keyrings/docker.gpg
   sudo apt-get update
-
-  echo '%docker ALL = (root) NOPASSWD: /usr/bin/dockerd' | tee docker
-  sudo cvtsudoers -f sudoers -o /etc/sudoers.d/docker docker
-  rm docker
   sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-  echo '{"hosts": ["unix:///mnt/wsl/shared-docker/docker.sock"]}' | sudo tee /etc/docker/daemon.json
+
+  if [[ "$WSL_DISTRO_NAME" == "Ubuntu" || "$WSL_DISTRO_NAME" == "Debian" ]];then
+    echo '%docker ALL = (root) NOPASSWD: /usr/bin/dockerd' | tee docker
+    sudo cvtsudoers -f sudoers -o /etc/sudoers.d/docker docker
+    rm docker
+    echo '{"hosts": ["unix:///mnt/wsl/shared-docker/docker.sock"]}' | sudo tee /etc/docker/daemon.json
+  fi
 }
 
 function _alacrity_termcap() {

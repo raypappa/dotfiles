@@ -46,8 +46,7 @@ https://github.com/bowmanjd/docker-wsl
 `/etc/docker/daemon.json`
 ```json
 {
-  "hosts": ["unix:///mnt/wsl/shared-docker/docker.sock"],
-  "iptables": false
+  "hosts": ["unix:///mnt/wsl/shared-docker/docker.sock"]
 }
 ```
 `/etc/sudoers.d/docker`
