@@ -181,16 +181,25 @@ function _tflint_install() {
 
 function _vim_install() {
   echo Installing Vim
-  local base_dir=~/.config/nvim
-
   if ! type nvim; then
     if grep -P --quiet '(?<=ID_LIKE=)debian$' /etc/os-release; then
-      wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.deb
-      sudo apt install -y ./nvim-linux64.deb
-      rm nvim-linux64.deb
+      destdir=/usr/share/neovim
+      test -d $destdir || sudo mkdir -p $destdir
+      curl -L -s https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz | sudo tar -xz -C $destdir --strip-components=1
+      sudo ln -s "$destdir/bin/nvim" "/usr/local/bin/nvim"
       sudo update-alternatives --install /usr/local/bin/vim vim $(which nvim) 20
     fi
   fi
+}
+
+function _vim_setup() {
+  echo Installing Vim
+  hash -r
+  if ! type nvim; then
+    echo "Neovim not installed"
+    return
+  fi
+  local base_dir=~/.config/nvim
 
   if [[ ! -e $base_dir && -L ~/.bashrc ]];then
     pushd ~/.config && ln -s $(dirname $(realpath  ~/.bashrc))/.config/nvim .; popd

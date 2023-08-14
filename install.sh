@@ -19,6 +19,7 @@ _aws_install
 _docker_install
 _lazydocker_install
 _vim_install
+_vim_setup
 _tflint_install
 _sam_cli_install
 _taskfile_cli_install
