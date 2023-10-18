@@ -35,6 +35,7 @@ function _install_symlinks() {
   bin_files="
   ~/.local/bin/credentials-to-env
   ~/.local/bin/genpw
+  ~/.local/bin/prune-branches
   "
   for file in $bin_files ;do
     file="${file/#~/$HOME}"
