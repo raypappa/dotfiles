@@ -1,13 +1,5 @@
 #!/bin/bash
 
-# output=$(git remote prune origin)
-output="Pruning origin
-URL: git@bitbucket.org:slalom-consulting/aws-genai-testbed.git
- * [pruned] origin/breakfix/taskfile-app-output
- * [pruned] origin/feature/ASUI-133-lambda-monitoring
- * [pruned] origin/feature/add-mode-to-scenario
- * [pruned] origin/feature/python-default-export
- * [pruned] origin/feature/task-clean-use-git-clean
- * [pruned] origin/feature/update-pre-commit"
+output=$(git remote prune origin)
 branches=$(echo "$output" | grep pruned | awk '{print $3}' | cut -d'/' -f2- | tr '\n' ' ') 
-git branch -D branches
+git branch -D $branches
