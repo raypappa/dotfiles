@@ -197,7 +197,7 @@ if [[ -e ~/.cargo/env ]];then
   . ~/.cargo/env
 fi
 
-if [[ "$WSL_DISTRO_NAME" == "Ubuntu" || "$WSL_DISTRO_NAME" == "Debian" ]];then
+if [[ "$WSL_DISTRO_NAME" == "Ubuntu" || "$WSL_DISTRO_NAME" == "Debian" ]] && [[ "$"NO_WSL_DOCKER != "true" ]];then
   DOCKER_DISTRO="$WSL_DISTRO_NAME"
   DOCKER_DIR=/mnt/wsl/shared-docker
   DOCKER_SOCK="$DOCKER_DIR/docker.sock"
