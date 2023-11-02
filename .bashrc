@@ -122,7 +122,7 @@ if ! shopt -oq posix; then
 fi
 
 if uname -r | grep -iq wsl;then
-    export BROWSER='/mnt/c/Windows/explorer.exe';
+    export BROWSER='wslview';
     export PATH=/mnt/c/opscode/chefdk/bin:$PATH
 fi
 
