@@ -54,12 +54,21 @@ function _install_symlinks() {
 }
 
 function _rbenv_install() {
-  echo Installing Ruby version manager
-  git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-  export PATH="~/.rbenv/bin:$PATH"
-  hash -r
-  mkdir -p "$(rbenv root)"/plugins
-  git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
+  if [ -e ~/.rbenv ];then
+    pushd ~/.rbenv
+    git pull
+    popd
+    pushd "$(rbenv root)"/plugins/ruby-build
+    git pull
+    popd
+  else 
+    echo Installing Ruby version manager
+    git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+    export PATH="~/.rbenv/bin:$PATH"
+    hash -r
+    mkdir -p "$(rbenv root)"/plugins
+    git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
+  fi
 }
 
 function _install_deps() {
@@ -98,18 +107,21 @@ function _install_deps() {
 
 function _pyenv_install() {
   echo Installing Python version manager
-  curl https://pyenv.run | bash
+  if [ ! -e ~/.pyenv ];then
+  curl -s https://pyenv.run | bash
   export PYENV_ROOT="$HOME/.pyenv"
   command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
   eval "$(pyenv init -)"
-  pyenv install 3.10.2
-  pyenv global 3.10.2
+  fi
+  PYTHON_VERSION=3.11.2
+  pyenv versions | grep $PYTHON_VERSION || (pyenv install $PYTHON_VERSION; pyenv global $PYTHON_VERSION)
   curl -sSL https://install.python-poetry.org | python3 -
 }
 
 function _nvm_install() {
+  NVM_VERSION=v0.39.2
   echo Installing Node.js version manager
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
+  curl -s -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
   export NVM_DIR=~/.nvm
   [ -s $NVM_DIR/nvm.sh ] && . $NVM_DIR/nvm.sh  # This loads nvm
   [ -s $NVM_DIR/bash_completion ] && . $NVM_DIR/bash_completion  # This loads nvm bash_completion
@@ -119,7 +131,13 @@ function _nvm_install() {
 
 function _tfenv_install() {
   echo Installing Terraform version manager
-  git clone --depth=1 https://github.com/tfutils/tfenv.git ~/.tfenv
+  if [ -e ~/.tfenv ];then 
+    pushd ~/.tfenv
+    git pull
+    popd
+  else
+    git clone --depth=1 https://github.com/tfutils/tfenv.git ~/.tfenv
+  fi
 }
 
 function _rust_install() {
@@ -130,22 +148,29 @@ function _rust_install() {
 
 function _install_aws_azure_login() {
   npm install -g aws-azure-login
+  if [ -L ~/.local/bin/aws-azure-login ];then
+    rm -f ~/.local/bin/aws-azure-login
+  fi
   ln -s $(which aws-azure-login) ~/.local/bin/aws-azure-login
 }
 
 function _aws_install() {
   local tmpdir=$(mktemp -d)
   pushd $tmpdir
-  curl -q "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+  curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
   unzip awscliv2.zip
-  sudo ./aws/install
+  if aws --version 2>/dev/null;then
+    sudo ./aws/install --update
+  else
+    sudo ./aws/install
+  fi
   popd
   rm -rf $tmpdir
 }
 
 function _lazydocker_install() {
   echo Installing lazydocker
-  curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+  curl -s https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
 }
 
 function _docker_install() {
@@ -173,7 +198,7 @@ function _alacrity_termcap() {
   wget https://github.com/alacritty/alacritty/releases/download/v0.11.0/alacritty.info
   sudo tic -xe alacritty,alacritty-direct alacritty.info
   infocmp alacritty
-  rm alacritty.info
+  rm -f alacritty.info
 }
 
 function _tflint_install() {
@@ -236,9 +261,13 @@ function _gen_locale() {
 }
 
 function _sam_cli_install() {
-  wget https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip
-  unzip aws-sam-cli-linux-x86_64.zip -d sam-installation
-  sudo ./sam-installation/install
+  wget -q https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip
+  unzip -q aws-sam-cli-linux-x86_64.zip -d sam-installation
+  if sam --version 2>/dev/null;then
+    sudo ./sam-installation/install --update
+  else
+    sudo ./sam-installation/install
+  fi
   rm -rf sam-installation aws-sam-cli-linux-x86_64.zip
 }
 
