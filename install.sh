@@ -11,6 +11,7 @@ _install_symlinks
 _alacrity_termcap
 _rbenv_install
 _pyenv_install
+_poetry_install
 _nvm_install
 _tfenv_install
 _rust_install
