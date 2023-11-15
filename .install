@@ -2,8 +2,11 @@ base_git_dir=~/.local/src/configs
 
 PYTHON_VERSION=3.10.2
 NVM_VERSION=v0.39.2
+ALACRITTY_VERSION=v0.11.0
+TERRAFORM_DOCS_VERSION=v0.16.0
 
 function _install_symlinks() {
+  echo Installing symlinks and scripts
   local files="
   ~/.bash_aliases
   ~/.bash_logout
@@ -57,6 +60,7 @@ function _install_symlinks() {
 }
 
 function _rbenv_install() {
+  echo Installing Ruby version manager
   if [ -e ~/.rbenv ];then
     pushd ~/.rbenv
     git pull
@@ -75,6 +79,7 @@ function _rbenv_install() {
 }
 
 function _install_deps() {
+  echo Installing dependencies
   sudo apt update
   sudo apt upgrade -y
   sudo apt-get remove -y --purge 'vim*'
@@ -121,6 +126,7 @@ function _pyenv_install() {
 }
 
 function _poetry_install() {
+  echo Installing Poetry for Python
   curl -sSL https://install.python-poetry.org | python3 -
   poetry --version
   poetry self add poetry-plugin-up poetry-plugin-export
@@ -129,7 +135,6 @@ function _poetry_install() {
 }
 
 function _nvm_install() {
-  
   echo Installing Node.js version manager
   curl -s -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
   export NVM_DIR=~/.nvm
@@ -157,6 +162,7 @@ function _rust_install() {
 }
 
 function _install_aws_azure_login() {
+  echo Installing aws-azure-login
   npm install -g aws-azure-login
   if [ -L ~/.local/bin/aws-azure-login ];then
     rm -f ~/.local/bin/aws-azure-login
@@ -165,6 +171,7 @@ function _install_aws_azure_login() {
 }
 
 function _aws_install() {
+  echo Installing AWS CLI
   local tmpdir=$(mktemp -d)
   pushd $tmpdir
   curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
@@ -184,6 +191,7 @@ function _lazydocker_install() {
 }
 
 function _docker_install() {
+  echo Installing Docker
   sudo apt-get remove docker docker-engine docker.io containerd runc -y
   sudo groupadd docker
   sudo usermod -aG docker ${USER}
@@ -207,13 +215,15 @@ function _docker_install() {
 }
 
 function _alacrity_termcap() {
-  wget https://github.com/alacritty/alacritty/releases/download/v0.11.0/alacritty.info
+  echo Installing Alacritty termcap
+  wget -q https://github.com/alacritty/alacritty/releases/download/$ALACRITTY_VERSION/alacritty.info
   sudo tic -xe alacritty,alacritty-direct alacritty.info
   infocmp alacritty
   rm -f alacritty.info
 }
 
 function _tflint_install() {
+  echo Installing TFlint
   curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
 }
 
@@ -235,7 +245,7 @@ function _vim_install() {
 }
 
 function _vim_setup() {
-  echo Installing Vim
+  echo Configuring Vim
   hash -r
   if ! type nvim; then
     echo "Neovim not installed"
@@ -263,7 +273,8 @@ function _vim_setup() {
 }
 
 function _terraform_docs_install() {
-  curl -sSL https://terraform-docs.io/dl/v0.16.0/terraform-docs-v0.16.0-$(uname)-amd64.tar.gz | tar -xz -C ~/.local/bin
+  echo Installing terraform-docs
+  curl -sSL https://terraform-docs.io/dl/${TERRAFORM_DOCS_VERSION}/terraform-docs-${TERRAFORM_DOCS_VERSION}-$(uname)-amd64.tar.gz | tar -xz -C ~/.local/bin
 }
 
 function _start_ssh_agent() {
@@ -273,10 +284,12 @@ function _start_ssh_agent() {
 }
 
 function _gen_locale() {
+  echo Generating locale
   bash -c 'sudo locale-gen $LANG'
 }
 
 function _sam_cli_install() {
+  echo Installing AWS SAM CLI
   wget -q https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip
   unzip -q aws-sam-cli-linux-x86_64.zip -d sam-installation
   if sam --version 2>/dev/null;then
@@ -288,6 +301,7 @@ function _sam_cli_install() {
 }
 
 function _taskfile_cli_install() {
+  echo Installing Taskfile
   sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b ~/.local/bin
   mkdir -p ~/.local/share/bash-completion
   wget https://raw.githubusercontent.com/go-task/task/main/completion/bash/task.bash -O ~/.local/share/bash-completion/task.bash
