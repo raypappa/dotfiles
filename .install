@@ -168,7 +168,7 @@ function _aws_install() {
   local tmpdir=$(mktemp -d)
   pushd $tmpdir
   curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-  unzip awscliv2.zip
+  unzip -q awscliv2.zip
   if aws --version 2>/dev/null;then
     sudo ./aws/install --update
   else
@@ -188,19 +188,21 @@ function _docker_install() {
   sudo groupadd docker
   sudo usermod -aG docker ${USER}
   sudo mkdir -m 0755 -p /etc/apt/keyrings
-  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+  if [ ! /etc/apt/keyrings/docker.gpg ];then
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+    sudo chmod a+r /etc/apt/keyrings/docker.gpg
+  fi
   echo \
     "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
     $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-  sudo chmod a+r /etc/apt/keyrings/docker.gpg
   sudo apt-get update
   sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
   if [[ "$WSL_DISTRO_NAME" == "Ubuntu" || "$WSL_DISTRO_NAME" == "Debian" ]];then
     echo '%docker ALL = (root) NOPASSWD: /usr/bin/dockerd' | tee docker
     sudo cvtsudoers -f sudoers -o /etc/sudoers.d/docker docker
-    rm docker
-    echo '{"hosts": ["unix:///mnt/wsl/shared-docker/docker.sock"]}' | sudo tee /etc/docker/daemon.json
+    rm -f docker
+    echo '{"hosts": ["unix:///mnt/wsl/shared-docker/docker.sock"]}' | jq . | sudo tee /etc/docker/daemon.json
   fi
 }
 
