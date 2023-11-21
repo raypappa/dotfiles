@@ -120,6 +120,8 @@ function _pyenv_install() {
   export PYENV_ROOT="$HOME/.pyenv"
   command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
   eval "$(pyenv init -)"
+  else
+    pyenv update
   fi
   
   pyenv versions | grep $PYTHON_VERSION || (pyenv install $PYTHON_VERSION; pyenv global $PYTHON_VERSION)
