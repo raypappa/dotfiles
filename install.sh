@@ -16,6 +16,7 @@ _nvm_install
 _tfenv_install
 _rust_install
 _install_aws_azure_login
+_install_cspell
 _aws_install
 _docker_install
 _lazydocker_install

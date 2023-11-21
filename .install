@@ -163,6 +163,14 @@ function _rust_install() {
   . ~/.cargo/env
 }
 
+function _install_cspell() {
+  echo Installing cspell
+  npm install -g cspell
+  if [ -L ~/.local/bin/cspell ];then
+    rm -f ~/.local/bin/cspell
+  fi
+  ln -s $(which cspell) ~/.local/bin/cspell
+}
 function _install_aws_azure_login() {
   echo Installing aws-azure-login
   npm install -g aws-azure-login
