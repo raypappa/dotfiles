@@ -183,13 +183,8 @@ fi
 
 ###############################################################################
 
-# Set the browser if wsl2 so url's will open correctly
-if [[ -e '/mnt/c/Windows/explorer.exe' ]];then
-  export BROWSER='/mnt/c/Windows/explorer.exe'
-fi
-
-
-if [[ "$(pwd)" == '/mnt/c/Windows/system32' ]];then
+# If we're in the /mnt/c system go home
+if [[ "$(pwd)" == '/mnt/c'* ]];then
   cd ~
 fi
 
