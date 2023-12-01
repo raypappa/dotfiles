@@ -68,7 +68,7 @@ function _rbenv_install() {
     pushd "$(rbenv root)"/plugins/ruby-build
     git pull
     popd
-  else 
+  else
     echo Installing Ruby version manager
     git clone https://github.com/rbenv/rbenv.git ~/.rbenv
     export PATH="~/.rbenv/bin:$PATH"
@@ -123,7 +123,7 @@ function _pyenv_install() {
   else
     pyenv update
   fi
-  
+
   pyenv versions | grep $PYTHON_VERSION || (pyenv install $PYTHON_VERSION; pyenv global $PYTHON_VERSION)
 }
 
@@ -148,7 +148,7 @@ function _nvm_install() {
 
 function _tfenv_install() {
   echo Installing Terraform version manager
-  if [ -e ~/.tfenv ];then 
+  if [ -e ~/.tfenv ];then
     pushd ~/.tfenv
     git pull
     popd
