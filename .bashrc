@@ -67,6 +67,24 @@ case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
 esac
 
+
+get_git_branch() {
+  local branch=$(git branch --no-color 2>/dev/null | grep '*' | colrm 1 2)
+  if [[ -n "$branch" ]];then
+    if [[ -n "$1" ]];then
+      echo -n " ($branch)"
+    else
+      echo -en " (\e[03;35m${branch}\e[00m)"
+    fi
+  else
+    echo -n ""
+  fi
+}
+
+# For setting the terminal title
+_thing1=$'\e]0;'
+_thing2=$'\a'
+
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
@@ -74,36 +92,79 @@ esac
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+  # We have color support; assume it's compliant with Ecma-48
+  # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+  # a case would tend to support setf rather than setaf.)
+  color_prompt=yes
     else
-	color_prompt=
+  color_prompt=
     fi
 fi
-parse_git_branch() {
-  # git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-  local branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
-  if [ -n "$branch" ];then
-    echo -en " \e[3;35m(${branch})\e[0m"
-  fi
-}
+
+# https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences
+# https://i.stack.imgur.com/9UVnC.png
+# Font  Effects
+# Code      Effect     Note
+# 0         Reset / Normal     all attributes off
+# 1         Bold or increased intensity     
+# 2         Faint (decreased intensity)     Not widely supported.
+# 3         Italic     Not widely supported. Sometimes treated as inverse.
+# 4         Underline     
+# 5         Slow Blink     less than 150 per minute
+# 6         Rapid Blink     MS-DOS ANSI.SYS; 150+ per minute; not widely supported
+# 7         [[reverse video]]     swap foreground and background colors
+# 8         Conceal     Not widely supported.
+# 9         Crossed-out     Characters legible, but marked for deletion. Not widely supported.
+# 10        Primary(default) font     
+# 11–19     Alternate font     Select alternate font n-10
+# 20        Fraktur     hardly ever supported
+# 21        Bold off or Double Underline     Bold off not widely supported; double underline hardly ever supported.
+# 22        Normal color or intensity     Neither bold nor faint
+# 23        Not italic, not Fraktur     
+# 24        Underline off     Not singly or doubly underlined
+# 25        Blink off     
+# 27        Inverse off     
+# 28        Reveal     conceal off
+# 29        Not crossed out     
+# 30–37     Set foreground color     See color table below
+# 38        Set foreground color     Next arguments are 5;<n> or 2;<r>;<g>;<b>, see below
+# 39        Default foreground color     implementation defined (according to standard)
+# 40–47     Set background color     See color table below
+# 48        Set background color     Next arguments are 5;<n> or 2;<r>;<g>;<b>, see below
+# 49        Default background color     implementation defined (according to standard)
+# 51        Framed     
+# 52        Encircled     
+# 53        Overlined     
+# 54        Not framed or encircled     
+# 55        Not overlined     
+# 60        ideogram underline     hardly ever supported
+# 61        ideogram double underline     hardly ever supported
+# 62        ideogram overline     hardly ever supported
+# 63        ideogram double overline     hardly ever supported
+# 64        ideogram stress marking     hardly ever supported
+# 65        ideogram attributes off     reset the effects of all of 60-64
+# 90–97     Set bright foreground color     aixterm (not in standard)
+# 100–107   Set bright background color     aixterm (not in standard)
 
 if [ "$color_prompt" = yes ]; then
-  PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]$(parse_git_branch):\[\033[01;34m\]\w\[\033[00m\]\$ '
+  # Set title to `\u@\h:\w $(get_git_branch nc)` which produces username@host:workingdir (branch)
+  # prompt will be stoney@platypus (main):workingdir (newline)$
+  # the git branch is purple, the directory is blue
+  PS1='\e]0;\u@\h:\w $(get_git_branch nc)\a${debian_chroot:+($debian_chroot)}\[\e[01;32m\u@\h\e[0m$(get_git_branch)\e[10;34m:\w\]\e[0m\n\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 unset color_prompt force_color_prompt
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
+
+# This is here but i've not see this code triggered in so so long.
+# # If this is an xterm set the title to user@host:dir
+# case "$TERM" in
+# xterm*|rxvt*)
+#     PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+#     ;;
+# *)
+#     ;;
+# esac
 
 ###############################################################################
 
@@ -127,7 +188,7 @@ if uname -r | grep -iq wsl;then
 fi
 
 if [[ -n "$WSL_DISTRO_NAME" ]];then
-	export TERM="alacritty"
+    export TERM="alacritty"
 fi
 
 ###############################################################################
