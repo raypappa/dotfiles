@@ -25,6 +25,7 @@ _vim_setup
 _tflint_install
 _sam_cli_install
 _taskfile_cli_install
+_configure_global_git
 
 . ~/.bashrc
 
