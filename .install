@@ -110,7 +110,8 @@ function _install_deps() {
     xz-utils \
     zip \
     zlib1g-dev \
-    tmux
+    tmux \
+    bash-completion
 }
 
 function _pyenv_install() {
