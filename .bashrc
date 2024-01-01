@@ -150,7 +150,7 @@ if [ "$color_prompt" = yes ]; then
   # Set title to `\u@\h:\w $(get_git_branch nc)` which produces username@host:workingdir (branch)
   # prompt will be stoney@platypus (main):workingdir (newline)$
   # the git branch is purple, the directory is blue
-  PS1='[\e]0;]\u@\h:\w $(get_git_branch nc)\a${debian_chroot:+($debian_chroot)}\[[\e[01;32m]\u@\h\e[0m$(get_git_branch)\e[10;34m:\w\]\e[0m\n\$ '
+  PS1='\e]0;\u@\h:\w $(get_git_branch nc)\a${debian_chroot:+($debian_chroot)}\[\e[01;32m\u@\h\e[0m$(get_git_branch)\e[10;34m:\w\]\e[0m\n\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
