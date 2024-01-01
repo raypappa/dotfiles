@@ -111,7 +111,17 @@ function _install_deps() {
     zip \
     zlib1g-dev \
     tmux \
-    bash-completion
+    bash-completion \ 
+    wslu
+}
+
+function _install_spaceship_prompt() {
+  if [ ! "$HOME/.zsh" ];then mkdir -p "$HOME/.zsh";fi
+  if [ -e "$HOME/.zsh/spaceship" ];then 
+    git pull -C "$HOME/.zsh/spaceship"
+  else
+    git clone --depth=1 https://github.com/spaceship-prompt/spaceship-prompt.git "$HOME/.zsh/spaceship"
+  ;fi
 }
 
 function _polyglot_prompt() {

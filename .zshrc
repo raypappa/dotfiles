@@ -39,6 +39,8 @@ autoload -Uz add-zsh-hook
 
 add-zsh-hook precmd _setspacer
 
+source "$HOME/.zsh/spaceship/spaceship.zsh"
+
 export PS1='%{${_thing1}%* %n@%m: ~% ${_thing2}%}[%* %F{green}${STY##*.} %n@%m%f:%F{yellow}%~%f]${_spacer} '
 
 preexec() { printf "${_thing1}%s${_thing2}" "${1}"; }
