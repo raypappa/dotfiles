@@ -114,6 +114,9 @@ function _install_deps() {
     bash-completion
 }
 
+function _polyglot_prompt() {
+  wget -q https://raw.githubusercontent.com/agkozak/polyglot/master/polyglot.sh -O ~/.local/bin/polyglot.sh
+}
 function _pyenv_install() {
   echo Installing Python version manager
   if [ ! -e ~/.pyenv ];then

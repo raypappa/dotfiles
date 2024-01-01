@@ -74,7 +74,7 @@ get_git_branch() {
     if [[ -n "$1" ]];then
       echo -n " ($branch)"
     else
-      echo -en " (\e[03;35m${branch}\e[00m)"
+      echo -en " (${branch})"
     fi
   else
     echo -n ""
@@ -146,14 +146,7 @@ fi
 # 90–97     Set bright foreground color     aixterm (not in standard)
 # 100–107   Set bright background color     aixterm (not in standard)
 
-if [ "$color_prompt" = yes ]; then
-  # Set title to `\u@\h:\w $(get_git_branch nc)` which produces username@host:workingdir (branch)
-  # prompt will be stoney@platypus (main):workingdir (newline)$
-  # the git branch is purple, the directory is blue
-  PS1='[\e]0;]\u@\h:\w $(get_git_branch nc)\a${debian_chroot:+($debian_chroot)}\[[\e[01;32m]\u@\h\e[0m$(get_git_branch)\e[10;34m:\w\]\e[0m\n\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
+PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 unset color_prompt force_color_prompt
 
 # This is here but i've not see this code triggered in so so long.
@@ -325,5 +318,9 @@ cdnvm() {
 # be horrified!!
 alias cd='cdnvm'
 cdnvm "$PWD" || exit
+
+if [ -e ~/.local/bin/polyglot.sh ];then
+  . ~/.local/bin/polyglot.sh
+fi
 
 export BASHRC_LOADED=1
