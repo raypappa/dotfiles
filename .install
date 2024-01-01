@@ -2,11 +2,12 @@ base_git_dir=~/.local/src/configs
 
 PYTHON_VERSION=3.10.2
 NVM_VERSION=v0.39.2
-ALACRITTY_VERSION=v0.11.0
+ALACRITTY_VERSION=v0.12.3
 TERRAFORM_DOCS_VERSION=v0.16.0
 
 function _install_symlinks() {
   echo Installing symlinks and scripts
+  
   local files="
   ~/.bash_aliases
   ~/.bash_logout
@@ -23,6 +24,7 @@ function _install_symlinks() {
   ~/.zshrc
   ~/.zshrc.zni
   "
+  # ln -s -f -t $HOME/ $base_git_dir/
   for file in $files ;do
     file="${file/#~/$HOME}"
     if [ -e "$file" ];then
@@ -121,7 +123,7 @@ function _install_spaceship_prompt() {
     git pull -C "$HOME/.zsh/spaceship"
   else
     git clone --depth=1 https://github.com/spaceship-prompt/spaceship-prompt.git "$HOME/.zsh/spaceship"
-  ;fi
+  fi
 }
 
 function _polyglot_prompt() {
