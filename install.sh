@@ -8,6 +8,7 @@ _install_symlinks
 
 . ~/.bashrc
 
+_polyglot_prompt
 _alacrity_termcap
 _rbenv_install
 _pyenv_install
