@@ -34,6 +34,7 @@ function _install_symlinks() {
   credentials-to-env
   genpw
   prune-branches
+  aws-console
   "
   pushd $base_git_dir/bin
   fs=$(for f in $bin_files;do echo -n "$base_git_dir/bin/$f ";done)
