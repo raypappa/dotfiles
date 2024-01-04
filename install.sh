@@ -8,7 +8,7 @@ _install_symlinks
 
 . ~/.bashrc
 
-_alacrity_termcap
+_alacrity_support
 _rbenv_install
 _pyenv_install
 _poetry_install

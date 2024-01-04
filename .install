@@ -2,7 +2,7 @@ base_git_dir=~/.local/src/configs
 
 PYTHON_VERSION=3.10.2
 NVM_VERSION=v0.39.2
-ALACRITTY_VERSION=v0.12.3
+ALACRITTY_VERSION=v0.13.0
 TERRAFORM_DOCS_VERSION=v0.16.0
 
 function _install_symlinks() {
@@ -240,12 +240,11 @@ function _docker_install() {
   fi
 }
 
-function _alacrity_termcap() {
-  echo Installing Alacritty termcap
-  wget -q https://github.com/alacritty/alacritty/releases/download/$ALACRITTY_VERSION/alacritty.info
-  sudo tic -xe alacritty,alacritty-direct alacritty.info
-  infocmp alacritty
-  rm -f alacritty.info
+function _alacrity_support() {
+  echo Installing Alacritty
+  wget -q https://github.com/alacritty/alacritty/releases/download/$ALACRITTY_VERSION/alacritty.bash -O ~/.local/share/bash-completion/alacritty.bash
+  curl -s https://github.com/alacritty/alacritty/releases/download/$ALACRITTY_VERSION/alacritty.info | sudo tic -xe alacritty,alacritty-direct -
+  infocmp alacritty 2>&1 >/dev/null
 }
 
 function _tflint_install() {
