@@ -9,56 +9,38 @@ function _install_symlinks() {
   echo Installing symlinks and scripts
   
   local files="
-  ~/.bash_aliases
-  ~/.bash_logout
-  ~/.bash_profile
-  ~/.bashrc
-  ~/.dircolors
-  ~/.inputrc
-  ~/.profile
-  ~/.tmux.conf
-  ~/.zcompdump
-  ~/.zpath
-  ~/.zprofile
-  ~/.zshenv
-  ~/.zshrc
-  ~/.zshrc.zni
+  .bash_aliases
+  .bash_logout
+  .bash_profile
+  .bashrc
+  .dircolors
+  .inputrc
+  .profile
+  .tmux.conf
+  .zcompdump
+  .zpath
+  .zprofile
+  .zshenv
+  .zshrc
+  .zshrc.zni
   "
-  # ln -s -f -t $HOME/ $base_git_dir/
-  for file in $files ;do
-    file="${file/#~/$HOME}"
-    if [ -e "$file" ];then
-      if [ ! -L "$file" ];then
-        rm -f "$file"
-      fi
-    fi
-    if [[ ! -e $file ]];then
-      filename=$(basename $file)
-      echo "Installing symlink for $file"
-      ln -s $base_git_dir/$filename $file
-    fi
-  done
+  pushd $base_git_dir
+  fs=$(for f in $files;do echo -n "$base_git_dir/$f ";done)
+  ln -v -s -f -t $HOME/ $fs
+  popd
 
   mkdir ~/.local/bin ~/.config -p
   bin_files="
-  ~/.local/bin/credentials-to-env
-  ~/.local/bin/genpw
-  ~/.local/bin/prune-branches
+  credentials-to-env
+  genpw
+  prune-branches
+  aws-console
   "
-  for file in $bin_files ;do
-    file="${file/#~/$HOME}"
-    if [ -e "$file" ];then
-      if [ ! -L "$file" ];then
-        rm -f "$file"
-      fi
-    fi
-    if [[ ! -e $file ]];then
-      filename=$(basename $file)
-      echo "Installing symlink for $file"
-      ln -s $base_git_dir/bin/$filename $file
-    fi
-  done
+  pushd $base_git_dir/bin
+  fs=$(for f in $bin_files;do echo -n "$base_git_dir/bin/$f ";done)
+  ln -v -s -f -t $HOME/.local/bin/ $fs
   export PATH=~/.local/bin:$PATH
+  popd
 }
 
 function _rbenv_install() {
@@ -113,8 +95,25 @@ function _install_deps() {
     zip \
     zlib1g-dev \
     tmux \
-    bash-completion \ 
-    wslu
+    bash-completion
+
+    if [[ "$WSL_DISTRO_NAME" == "Ubuntu" ]];then
+      . /etc/os-release
+      # Starting from Ubuntu 22.04 LTS, Ubuntu on WSL no longer bundled with wslu. Please install the PPA version.
+      if [[ "$VERSION_ID" == "22.04" ]];then
+        sudo apt install ubuntu-wsl -y
+        sudo add-apt-repository ppa:wslutilities/wslu -y
+        sudo apt update
+        sudo apt install wslu -y
+      fi
+
+    elif [[ "$WSL_DISTRO_NAME" == "Debian" ]];then
+      sudo apt install gnupg2 apt-transport-https -y
+      wget -O - https://pkg.wslutiliti.es/public.key | sudo tee /etc/apt/trusted.gpg.d/wslu.asc
+      echo "deb https://pkg.wslutiliti.es/debian $(. /etc/os-release && echo "$VERSION_CODENAME") main" | sudo tee /etc/apt/sources.list.d/wslu.list
+      sudo apt update
+      sudo apt install wslu -y
+    fi
 }
 
 function _install_spaceship_prompt() {
@@ -129,6 +128,7 @@ function _install_spaceship_prompt() {
 function _polyglot_prompt() {
   wget -q https://raw.githubusercontent.com/agkozak/polyglot/master/polyglot.sh -O ~/.local/bin/polyglot.sh
 }
+
 function _pyenv_install() {
   echo Installing Python version manager
   if [ ! -e ~/.pyenv ];then

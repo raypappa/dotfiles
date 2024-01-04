@@ -9,6 +9,7 @@ _install_symlinks
 . ~/.bashrc
 
 _alacrity_support
+_polyglot_prompt
 _rbenv_install
 _pyenv_install
 _poetry_install
