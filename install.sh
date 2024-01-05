@@ -27,6 +27,7 @@ _tflint_install
 _sam_cli_install
 _taskfile_cli_install
 _configure_global_git
+_install_gh_cli
 
 . ~/.bashrc
 
