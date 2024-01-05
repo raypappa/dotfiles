@@ -282,6 +282,7 @@ alias cd='cdnvm'
 cdnvm "$PWD" || exit
 
 if [ -e ~/.local/bin/polyglot.sh ];then
+  export POLYGLOT_SHOW_UNTRACKED=0
   . ~/.local/bin/polyglot.sh
 fi
 
