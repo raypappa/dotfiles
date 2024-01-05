@@ -286,4 +286,7 @@ if [ -e ~/.local/bin/polyglot.sh ];then
   . ~/.local/bin/polyglot.sh
 fi
 
+# Dedupe the path, somehow duplicates get added. Don't care where they came from but i don't want them.
+PATH=$(python3 -c "import os;print(':'.join(dict.fromkeys(map(os.path.normpath, os.environ['PATH'].split(':'))).keys()))")
+
 export BASHRC_LOADED=1
