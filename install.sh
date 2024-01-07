@@ -28,6 +28,7 @@ _sam_cli_install
 _taskfile_cli_install
 _configure_global_git
 _install_gh_cli
+_install_kubectl
 
 . ~/.bashrc
 

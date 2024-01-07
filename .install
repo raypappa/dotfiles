@@ -249,6 +249,12 @@ function _docker_install() {
   fi
 }
 
+function _install_kubectl() {
+     curl -s -L "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/$(dpkg --print-architecture)/kubectl" -o ~/.local/bin/kubectl
+     chmod +x ~/.local/bin/kubectl
+     hash -r 
+     kubectl version --client
+}
 function _alacrity_support() {
   echo Installing Alacritty
   wget -q https://github.com/alacritty/alacritty/releases/download/$ALACRITTY_VERSION/alacritty.bash -O ~/.local/share/bash-completion/alacritty.bash
