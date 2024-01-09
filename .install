@@ -5,6 +5,7 @@ NVM_VERSION=v0.39.2
 ALACRITTY_VERSION=v0.13.0
 TERRAFORM_DOCS_VERSION=v0.16.0
 GH_VERSION=2.40.1
+KUBE_VERSION=v1.29
 
 function _install_symlinks() {
   echo Installing symlinks and scripts
@@ -74,6 +75,7 @@ function _install_deps() {
     ca-certificates \
     curl \
     git \
+    fzf \
     keychain \
     libbz2-dev \
     libffi-dev \
@@ -250,11 +252,12 @@ function _docker_install() {
 }
 
 function _install_kubectl() {
-     curl -s -L "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/$(dpkg --print-architecture)/kubectl" -o ~/.local/bin/kubectl
-     chmod +x ~/.local/bin/kubectl
-     hash -r 
-     kubectl version --client
+  curl -fsSL https://pkgs.k8s.io/core:/stable:/${KUBE_VERSION}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+  echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/${KUBE_VERSION}/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+  sudo apt update
+  sudo apt install -y kubectl kubeadm
 }
+
 function _alacrity_support() {
   echo Installing Alacritty
   wget -q https://github.com/alacritty/alacritty/releases/download/$ALACRITTY_VERSION/alacritty.bash -O ~/.local/share/bash-completion/alacritty.bash
