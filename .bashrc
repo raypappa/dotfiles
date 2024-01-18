@@ -177,9 +177,6 @@ fi
 if [[ -e "$HOME/.pyenv/bin" ]];then
   export PATH=~/.pyenv/bin:$PATH
 fi
-if [[ -e "$HOME/.pyenv/shims" ]];then
-  export PATH=~/.pyenv/shims:$PATH
-fi
 if [[ -e "$HOME/.rbenv/bin" ]];then
   export PATH=~/.rbenv/bin:$PATH
 fi
@@ -187,7 +184,6 @@ fi
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 eval "$(rbenv init - bash)"
-eval "$(pyenv virtualenv-init -)"
 
 [ -s $NVM_DIR/nvm.sh ] && . $NVM_DIR/nvm.sh  # This loads nvm
 [ -s $NVM_DIR/bash_completion ] && . $NVM_DIR/bash_completion  # This loads nvm bash_completion
