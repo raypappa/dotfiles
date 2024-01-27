@@ -1,6 +1,6 @@
 base_git_dir=~/.local/src/configs
 
-PYTHON_VERSION=3.10.2
+PYENV_VERSION=3.10.2
 NVM_VERSION=v0.39.2
 ALACRITTY_VERSION=v0.13.0
 TERRAFORM_DOCS_VERSION=v0.16.0
@@ -151,7 +151,7 @@ function _pyenv_install() {
     pyenv update
   fi
 
-  pyenv versions | grep $PYTHON_VERSION || (pyenv install $PYTHON_VERSION; pyenv global $PYTHON_VERSION)
+  pyenv versions | grep $PYENV_VERSION || (pyenv install $PYENV_VERSION; pyenv global $PYENV_VERSION)
 }
 
 function _poetry_install() {
@@ -198,6 +198,7 @@ function _install_cspell() {
   fi
   ln -s $(which cspell) ~/.local/bin/cspell
 }
+
 function _install_aws_azure_login() {
   echo Installing aws-azure-login
   npm install -g aws-azure-login
@@ -305,7 +306,7 @@ function _vim_setup() {
     git clone https://github.com/VundleVim/Vundle.vim.git $base_dir/bundle/Vundle.vim
   fi
 
-  pyenv virtualenv $PYTHON_VERSION neovim3
+  pyenv virtualenv $PYENV_VERSION neovim3
   pyenv activate neovim3
   pip install neovim
   pyenv deactivate
@@ -353,4 +354,14 @@ function _taskfile_cli_install() {
 
 function _configure_global_git() {
   git config --global init.defaultBranch main
+}
+
+function _install_pipx() {
+  pyenv shell $PYENV_VERSION
+
+  pyenv exec pip install --user pipx
+}
+
+function _install_nvshim() {
+  pipx install git+https://github.com/iamogbz/nvshim.git
 }

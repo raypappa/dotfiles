@@ -12,8 +12,10 @@ _alacrity_support
 _polyglot_prompt
 _rbenv_install
 _pyenv_install
+_install_pipx
 _poetry_install
 _nvm_install
+_install_nvshim
 _tfenv_install
 _rust_install
 _install_aws_azure_login
