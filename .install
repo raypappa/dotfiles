@@ -365,3 +365,7 @@ function _install_pipx() {
 function _install_nvshim() {
   pipx install git+https://github.com/iamogbz/nvshim.git
 }
+
+function _install_tmux_completions() {
+  wget -O ~/.local/share/bash-completion/tmux.bash https://raw.githubusercontent.com/imomaliev/tmux-bash-completion/master/completions/tmux 
+}

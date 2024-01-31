@@ -10,7 +10,9 @@ esac
 # Update configs
 pushd $(dirname $(realpath ~/.bashrc)) && git pull --rebase; popd
 
-. /usr/share/bash-completion/completions/git
+if [ -e /usr/share/bash-completion/completions/git ];then
+  . /usr/share/bash-completion/completions/git
+fi
 
 if [[ ( -z "${SSH_AGENT_PID}"  && -z "${SSH_AUTH_SOCK}" ) ]]; then
   echo Sourcing agent file
@@ -149,6 +151,7 @@ fi
 ###############################################################################
 # Shell tooling
 
+
 if [[ -e ~/.bashrc.local ]];then
   . ~/.bashrc.local
 fi
@@ -181,12 +184,17 @@ if [[ -e "$HOME/.rbenv/bin" ]];then
   export PATH=~/.rbenv/bin:$PATH
 fi
 
+
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 eval "$(rbenv init - bash)"
 
+
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export NVSHIM_AUTO_INSTALL=1
+
 source <(npm completion)
 
 if [[ -e /c/opscode/chefdk/bin ]];then
@@ -228,6 +236,10 @@ fi
 
 if [[ -e ~/.local/share/bash-completion/task.bash ]];then
   . ~/.local/share/bash-completion/task.bash
+fi
+
+if [ -e ~/.local/share/bash-completion/tmux.bash ];then
+  . ~/.local/share/bash-completion/tmux.bash
 fi
 
 if [ -e ~/.local/bin/polyglot.sh ];then
