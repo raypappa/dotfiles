@@ -8,7 +8,9 @@ case $- in
 esac
 
 # Update configs
-pushd $(dirname $(realpath ~/.bashrc)) && git pull --rebase; popd
+if [ -z "$TMUX" ];then
+  pushd $(dirname $(realpath ~/.bashrc)) && git pull --rebase; popd
+fi
 
 if [ -e /usr/share/bash-completion/completions/git ];then
   . /usr/share/bash-completion/completions/git
