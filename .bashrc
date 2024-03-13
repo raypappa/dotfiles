@@ -249,7 +249,16 @@ if [ -e ~/.local/bin/polyglot.sh ];then
   . ~/.local/bin/polyglot.sh
 fi
 
+# pnpm
+export PNPM_HOME="$HOME/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
 # Dedupe the path, somehow duplicates get added. Don't care where they came from but i don't want them.
 PATH=$(python3 -c "import os;print(':'.join(dict.fromkeys(map(os.path.normpath, os.environ['PATH'].split(':'))).keys()))")
 
 export BASHRC_LOADED=1
+

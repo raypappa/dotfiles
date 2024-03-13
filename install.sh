@@ -31,6 +31,7 @@ _taskfile_cli_install
 _configure_global_git
 _install_gh_cli
 _install_kubectl
+_install_pnpm
 
 . ~/.bashrc
 

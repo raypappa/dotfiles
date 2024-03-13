@@ -369,3 +369,7 @@ function _install_nvshim() {
 function _install_tmux_completions() {
   wget -O ~/.local/share/bash-completion/tmux.bash https://raw.githubusercontent.com/imomaliev/tmux-bash-completion/master/completions/tmux 
 }
+
+function _install_pnpm() {
+  curl -fsSL https://get.pnpm.io/install.sh | sh -
+}
