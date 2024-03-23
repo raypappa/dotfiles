@@ -241,7 +241,7 @@ if [[ -e ~/.local/share/bash-completion/task.bash ]];then
 fi
 
 if [ -e ~/.local/share/bash-completion/tmux.bash ];then
-  . ~/.local/share/bash-completion/tmux.bash
+  source ~/.local/share/bash-completion/tmux.bash
 fi
 
 if [ -e ~/.local/bin/polyglot.sh ];then
