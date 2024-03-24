@@ -365,5 +365,7 @@ let g:ale_fixers = {
    \'*': ['remove_trailing_lines', 'trim_whitespace'],
    \}
 
+let g:editorconfig = v:true
 
+set autochdir
 let g:npm_background = 1
