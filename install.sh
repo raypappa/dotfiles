@@ -8,26 +8,26 @@ _install_symlinks
 
 . ~/.bashrc
 
-_alacrity_support
-_polyglot_prompt
-_rbenv_install
-_pyenv_install
+_install_alacrity_support
+_install_polyglot_prompt
+_install_rbenv
+_install_pyenv
 _install_pipx
-_poetry_install
-_nvm_install
+_install_poetry
+_install_nvm
 _install_nvshim
-_tfenv_install
-_rust_install
+_install_tfenv
+_install_rust
 _install_aws_azure_login
 _install_cspell
-_aws_install
-_docker_install
-_lazydocker_install
-_vim_install
-_vim_setup
-_tflint_install
-_sam_cli_install
-_taskfile_cli_install
+_install_aws
+_install_docker
+_install_lazydocker
+_install_vim
+_configure_nvim
+_install_tflint
+_install_sam_cli
+_install_taskfile_cli
 _configure_global_git
 _install_gh_cli
 _install_kubectl
@@ -35,7 +35,7 @@ _install_pnpm
 
 . ~/.bashrc
 
-_gen_locale
+_configure_locale
 _start_ssh_agent
 
 echo Please restart terminal.

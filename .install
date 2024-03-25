@@ -45,7 +45,7 @@ function _install_symlinks() {
   popd
 }
 
-function _rbenv_install() {
+function _install_rbenv() {
   echo Installing Ruby version manager
   if [ -e ~/.rbenv ];then
     pushd ~/.rbenv
@@ -136,11 +136,11 @@ function _install_spaceship_prompt() {
   fi
 }
 
-function _polyglot_prompt() {
+function _install_polyglot_prompt() {
   wget -q https://raw.githubusercontent.com/agkozak/polyglot/master/polyglot.sh -O ~/.local/bin/polyglot.sh
 }
 
-function _pyenv_install() {
+function _install_pyenv() {
   echo Installing Python version manager
   if [ ! -e ~/.pyenv ];then
   curl -s https://pyenv.run | bash
@@ -154,7 +154,7 @@ function _pyenv_install() {
   pyenv versions | grep $PYENV_VERSION || (pyenv install $PYENV_VERSION; pyenv global $PYENV_VERSION)
 }
 
-function _poetry_install() {
+function _install_poetry() {
   echo Installing Poetry for Python
   curl -sSL https://install.python-poetry.org | python3 -
   poetry --version
@@ -163,7 +163,7 @@ function _poetry_install() {
   poetry self show plugins
 }
 
-function _nvm_install() {
+function _install_nvm() {
   echo Installing Node.js version manager
   curl -s -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
   export NVM_DIR=~/.nvm
@@ -173,7 +173,7 @@ function _nvm_install() {
   source <(npm completion)
 }
 
-function _tfenv_install() {
+function _install_tfenv() {
   echo Installing Terraform version manager
   if [ -e ~/.tfenv ];then
     pushd ~/.tfenv
@@ -184,7 +184,7 @@ function _tfenv_install() {
   fi
 }
 
-function _rust_install() {
+function _install_rust() {
   echo Installing Rust
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path --profile default -y
   . ~/.cargo/env
@@ -208,7 +208,7 @@ function _install_aws_azure_login() {
   ln -s $(which aws-azure-login) ~/.local/bin/aws-azure-login
 }
 
-function _aws_install() {
+function _install_aws() {
   echo Installing AWS CLI
   local tmpdir=$(mktemp -d)
   pushd $tmpdir
@@ -223,12 +223,12 @@ function _aws_install() {
   rm -rf $tmpdir
 }
 
-function _lazydocker_install() {
+function _install_lazydocker() {
   echo Installing lazydocker
   curl -s https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
 }
 
-function _docker_install() {
+function _install_docker() {
   echo Installing Docker
   sudo apt-get remove docker docker-engine docker.io containerd runc -y
   sudo groupadd docker
@@ -259,19 +259,19 @@ function _install_kubectl() {
   sudo apt install -y kubectl kubeadm
 }
 
-function _alacrity_support() {
+function _install_alacrity_support() {
   echo Installing Alacritty
   wget -q https://github.com/alacritty/alacritty/releases/download/$ALACRITTY_VERSION/alacritty.bash -O ~/.local/share/bash-completion/alacritty.bash
   curl -s https://github.com/alacritty/alacritty/releases/download/$ALACRITTY_VERSION/alacritty.info | sudo tic -xe alacritty,alacritty-direct -
   infocmp alacritty 2>&1 >/dev/null
 }
 
-function _tflint_install() {
+function _install_tflint() {
   echo Installing TFlint
   curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
 }
 
-function _vim_install() {
+function _install_vim() {
   echo Installing Vim
   if ! type nvim; then
     if grep -P --quiet '(?<=ID_LIKE=)debian$' /etc/os-release; then
@@ -288,7 +288,7 @@ function _vim_install() {
   fi
 }
 
-function _vim_setup() {
+function _configure_nvim() {
   echo Configuring Vim
   hash -r
   if ! type nvim; then
@@ -316,7 +316,7 @@ function _vim_setup() {
 
 }
 
-function _terraform_docs_install() {
+function _install_terraform_docs() {
   echo Installing terraform-docs
   curl -sSL https://terraform-docs.io/dl/${TERRAFORM_DOCS_VERSION}/terraform-docs-${TERRAFORM_DOCS_VERSION}-$(uname)-amd64.tar.gz | tar -xz -C ~/.local/bin
 }
@@ -327,12 +327,12 @@ function _start_ssh_agent() {
 
 }
 
-function _gen_locale() {
+function _configure_locale() {
   echo Generating locale
   bash -c 'sudo locale-gen $LANG'
 }
 
-function _sam_cli_install() {
+function _install_sam_cli() {
   echo Installing AWS SAM CLI
   wget -q https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip
   unzip -q aws-sam-cli-linux-x86_64.zip -d sam-installation
@@ -344,7 +344,7 @@ function _sam_cli_install() {
   rm -rf sam-installation aws-sam-cli-linux-x86_64.zip
 }
 
-function _taskfile_cli_install() {
+function _install_taskfile_cli() {
   echo Installing Taskfile
   sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b ~/.local/bin
   mkdir -p ~/.local/share/bash-completion
