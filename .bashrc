@@ -171,8 +171,12 @@ fi
 if [[ -e "$HOME/.local/bin" ]];then
   export PATH=~/.local/bin:$PATH
 fi
+
 if [[ -e "$HOME/go/bin" ]];then
-  export PATH=~/go/bin:${PATH}
+  export PATH="$HOME/go/bin:$PATH"
+fi
+if [[ -e "$HOME/.local/share/go/bin" ]];then
+  export PATH="$HOME/.local/share/go/bin:$PATH"
 fi
 
 export NVM_DIR=~/.nvm
@@ -202,6 +206,7 @@ source <(npm completion)
 if [[ -e /c/opscode/chefdk/bin ]];then
   export PATH=/c/opscode/chefdk/bin:$PATH
 fi
+
 
 ###############################################################################
 

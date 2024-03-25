@@ -6,6 +6,7 @@ ALACRITTY_VERSION=v0.13.0
 TERRAFORM_DOCS_VERSION=v0.16.0
 GH_VERSION=2.40.1
 KUBE_VERSION=v1.29
+GOLANG_VERSION=1.22.1
 
 function _install_symlinks() {
   echo Installing symlinks and scripts
@@ -372,4 +373,9 @@ function _install_tmux_completions() {
 
 function _install_pnpm() {
   curl -fsSL https://get.pnpm.io/install.sh | sh -
+}
+
+function _install_golang() {
+  wget -O - https://go.dev/dl/go${GOLANG_VERSION}.linux-amd64.tar.gz | \
+    tar -C ~/.local/share -xz
 }
