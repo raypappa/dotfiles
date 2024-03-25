@@ -1,4 +1,4 @@
-# configs
+# dotfiles
 
 Currently I'm using tmux, bash, and neovim for tooling workflows. Other
 items may not be very well maintained
@@ -41,18 +41,12 @@ Start-Process msiexec.exe -ArgumentList "/i `"C:\AWSCLIV2.msi`" /quiet" -Wait
 1. Add ssh key to github
 1. clone repo in wsl/linux/mac
    ```bash
-   git clone git@github.com:blade2005/configs.git ~/.local/src/configs
+   git clone git@github.com:blade2005/dotfiles.git ~/.local/src/dotfiles
    ```
 
 ## Install script
-1. Installs [NVM](https://github.com/nvm-sh/nvm)
-1. Installs [TFEnv](https://github.com/tfutils/tfenv)
-1. Installs [PyEnv](https://github.com/pyenv/pyenv)
-1. Installs [RBEnv](https://github.com/rbenv/rbenv)
-1. Installs NeoVim
-1. Installs Rust
-1. Configures NeoVim
-1. Installs symlinks
+
+Installs a lot of things. It's categorized in functions so it's easy to see from the [install](./install.sh) script.
 
 ### Docker
 Docker has some special stuff which is mostly preset but you'll need to configure the daemon and sudoers

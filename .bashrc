@@ -7,7 +7,7 @@ case $- in
       *) return;;
 esac
 
-# Update configs
+# Update dotfiles
 if [ -z "$TMUX" ];then
   pushd $(dirname $(realpath ~/.bashrc)) && git pull --rebase; popd
 fi

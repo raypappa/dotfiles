@@ -1,4 +1,4 @@
-base_git_dir=~/.local/src/configs
+base_git_dir=~/.local/src/dotfiles
 
 PYENV_VERSION=3.10.2
 NVM_VERSION=v0.39.2
