@@ -159,9 +159,9 @@ function _install_poetry() {
   echo Installing Poetry for Python
   curl -sSL https://install.python-poetry.org | python3 -
   poetry --version
-  poetry self add poetry-plugin-up poetry-plugin-export
-  poetry self update
-  poetry self show plugins
+  PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring poetry self add poetry-plugin-up poetry-plugin-export
+  PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring poetry self update
+  PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring poetry self show plugins
 }
 
 function _install_nvm() {
@@ -234,14 +234,13 @@ function _install_docker() {
   sudo apt-get remove docker docker-engine docker.io containerd runc -y
   sudo groupadd docker
   sudo usermod -aG docker ${USER}
-  sudo mkdir -m 0755 -p /etc/apt/keyrings
-  if [ ! /etc/apt/keyrings/docker.gpg ];then
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-    sudo chmod a+r /etc/apt/keyrings/docker.gpg
+  sudo install -m 0755 -d /etc/apt/keyrings
+  if [ ! /etc/apt/keyrings/docker.asc ];then
+    sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+    sudo chmod a+r /etc/apt/keyrings/docker.asc
   fi
-  echo \
-    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-    $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+  echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
   sudo apt-get update
   sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
