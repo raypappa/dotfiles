@@ -262,10 +262,19 @@ case ":$PATH:" in
 esac
 # pnpm end
 
-# Dedupe the path, somehow duplicates get added. Don't care where they came from but i don't want them.
-PATH=$(python3 -c "import os;print(':'.join(dict.fromkeys(map(os.path.normpath, os.environ['PATH'].split(':'))).keys()))")
-
-which -a python
+if [ -n "$PATH" ]; then
+  old_PATH=$PATH:; PATH=
+  while [ -n "$old_PATH" ]; do
+    x=${old_PATH%%:*}       # the first remaining entry
+    case $PATH: in
+      *:"$x":*) ;;          # already there
+      *) PATH=$PATH:$x;;    # not there yet
+    esac
+    old_PATH=${old_PATH#*:}
+  done
+  PATH=${PATH#:}
+  unset old_PATH x
+fi
 
 export BASHRC_LOADED=1
 
