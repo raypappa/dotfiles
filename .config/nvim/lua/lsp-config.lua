@@ -5,7 +5,7 @@ require("mason").setup()
 require("mason-lspconfig").setup({
   ensure_installed = {
     "lua_ls", "bashls", "dockerls", "eslint", "jsonls", "tsserver",
-    "marksman", "pyright", "ruby_ls", "taplo", "terraformls", "tflint",
+    "marksman", "pyright", "taplo", "terraformls", "tflint",
     "yamlls"
   },
   automatic_installation = false
