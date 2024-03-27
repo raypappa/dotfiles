@@ -44,6 +44,13 @@ function _install_symlinks() {
   ln -v -s -f -t $HOME/.local/bin/ $fs
   export PATH=~/.local/bin:$PATH
   popd
+
+  local base_dir=~/.config/
+  ls -1 $base_git_dir/.config | while read f;do
+    if [[ ! -e $base_dir/$f ]];then
+      ln -s $base_git_dir/.config/$f $base_dir
+    fi
+  done
 }
 
 function _install_rbenv() {
