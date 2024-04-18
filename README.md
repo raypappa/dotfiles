@@ -38,7 +38,7 @@ wsl.exe --install -d Debian
 1. clone repo in wsl/linux/mac
 
 ```bash
-git clone git@github.com:blade2005/dotfiles.git ~/.cfg
+git clone --bare git@github.com:blade2005/dotfiles.git ~/.cfg
 git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout main --force
 ```
 
