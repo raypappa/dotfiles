@@ -6,4 +6,4 @@
 if [ "$SHLVL" = 1 ]; then
     [ -x /usr/bin/clear_console ] && /usr/bin/clear_console -q
 fi
-cd $(dirname $(realpath ~/.bashrc)) && git commit -a -m "autocommit incremental changes" && git push
+#cd $(dirname $(realpath ~/.bashrc)) && git commit -a -m "autocommit incremental changes" && git push
