@@ -1,5 +1,3 @@
-base_git_dir=~/.local/src/dotfiles
-
 PYENV_VERSION=3.10.2
 NVM_VERSION=v0.39.2
 ALACRITTY_VERSION=v0.13.0
@@ -8,60 +6,11 @@ GH_VERSION=2.40.1
 KUBE_VERSION=v1.29
 GOLANG_VERSION=1.22.1
 
-function _install_symlinks() {
-  echo Installing symlinks and scripts
-  
-  local files="
-  .bash_aliases
-  .bash_logout
-  .bash_profile
-  .bashrc
-  .dircolors
-  .inputrc
-  .profile
-  .tmux.conf
-  .zcompdump
-  .zpath
-  .zprofile
-  .zshenv
-  .zshrc
-  .zshrc.zni
-  "
-  pushd $base_git_dir
-  fs=$(for f in $files;do echo -n "$base_git_dir/$f ";done)
-  ln -v -s -f -t $HOME/ $fs
-  popd
-
-  mkdir ~/.local/bin ~/.config -p
-  bin_files="
-  credentials-to-env
-  genpw
-  prune-branches
-  aws-console
-  "
-  pushd $base_git_dir/bin
-  fs=$(for f in $bin_files;do echo -n "$base_git_dir/bin/$f ";done)
-  ln -v -s -f -t $HOME/.local/bin/ $fs
-  export PATH=~/.local/bin:$PATH
-  popd
-
-  local base_dir=~/.config/
-  ls -1 $base_git_dir/.config | while read f;do
-    if [[ ! -e $base_dir/$f ]];then
-      ln -s $base_git_dir/.config/$f $base_dir
-    fi
-  done
-}
-
 function _install_rbenv() {
   echo Installing Ruby version manager
   if [ -e ~/.rbenv ];then
-    pushd ~/.rbenv
-    git pull
-    popd
-    pushd "$(rbenv root)"/plugins/ruby-build
-    git pull
-    popd
+    git -C ~/.rbenv pull
+    git -C "$(rbenv root)"/plugins/ruby-build pull 
   else
     echo Installing Ruby version manager
     git clone https://github.com/rbenv/rbenv.git ~/.rbenv
@@ -173,7 +122,7 @@ function _install_poetry() {
 
 function _install_nvm() {
   echo Installing Node.js version manager
-  curl -s -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
+  curl -s -o- https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_VERSION}/install.sh | bash
   export NVM_DIR=~/.nvm
   [ -s $NVM_DIR/nvm.sh ] && . $NVM_DIR/nvm.sh  # This loads nvm
   [ -s $NVM_DIR/bash_completion ] && . $NVM_DIR/bash_completion  # This loads nvm bash_completion
@@ -184,9 +133,7 @@ function _install_nvm() {
 function _install_tfenv() {
   echo Installing Terraform version manager
   if [ -e ~/.tfenv ];then
-    pushd ~/.tfenv
-    git pull
-    popd
+    git -C ~/.tfenv pull
   else
     git clone --depth=1 https://github.com/tfutils/tfenv.git ~/.tfenv
   fi
@@ -250,13 +197,6 @@ function _install_docker() {
   echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
   sudo apt-get update
   sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-
-  if [[ "$WSL_DISTRO_NAME" == "Ubuntu" || "$WSL_DISTRO_NAME" == "Debian" ]];then
-    echo '%docker ALL = (root) NOPASSWD: /usr/bin/dockerd' | tee docker
-    sudo cvtsudoers -f sudoers -o /etc/sudoers.d/docker docker
-    rm -f docker
-    echo '{"hosts": ["unix:///mnt/wsl/shared-docker/docker.sock"]}' | jq . | sudo tee /etc/docker/daemon.json
-  fi
 }
 
 function _install_kubectl() {
@@ -302,25 +242,11 @@ function _configure_nvim() {
     echo "Neovim not installed"
     return
   fi
-  local base_dir=~/.config/nvim
-
-  if [[ ! -e $base_dir && -L ~/.bashrc ]];then
-    pushd ~/.config && ln -s $(dirname $(realpath  ~/.bashrc))/.config/nvim .; popd
-  fi
-
-  if [ ! -d $base_dir/bundle/Vundle.vim ];then
-    echo Installing Vundle
-    git clone https://github.com/VundleVim/Vundle.vim.git $base_dir/bundle/Vundle.vim
-  fi
 
   pyenv virtualenv $PYENV_VERSION neovim3
-  pyenv activate neovim3
-  pip install neovim
-  pyenv deactivate
-  vim +PluginInstall +qall
-
-  pushd $base_dir/bundle/plugins/flake8-vim/ftplugin/python/pycodestyle && git checkout main && git pull; popd
-
+  pyenv local neovim3
+  pyenv exec pip install neovim
+  vim +PlugInstall +qall
 }
 
 function _install_terraform_docs() {

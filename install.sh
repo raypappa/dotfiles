@@ -4,8 +4,6 @@
 
 _install_deps
 
-_install_symlinks
-
 . ~/.bashrc
 
 _install_alacrity_support

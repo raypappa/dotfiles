@@ -4,113 +4,128 @@ set nocompatible
 
 " temporarily ft off
 filetype off
-" Vundle stuf
+
+" Plug stuff
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+    silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+      autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    endif
+" set rtp+=~/.vim/bundle/Vundle.vim
+call plug#begin()
+
 set rtp+=~/.config/nvim/bundle/Vundle.vim
-call vundle#begin('~/.config/nvim/bundle/plugins')
+
 " Package manager
-Plugin 'VundleVim/Vundle.vim'
+Plug 'VundleVim/Vundle.vim'
 
 " Fugitive is the premier Vim plugin for Git
 " :G
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 
 " A Vim plugin to visualizes the Vim undo tree.
-Plugin 'simnalamburt/vim-mundo'
+Plug 'simnalamburt/vim-mundo'
 
 " Sane defaults
-Plugin 'tpope/vim-sensible'
+Plug 'tpope/vim-sensible'
 
-" Easy alignment of strings with delimters
+Plug 'vim-syntastic/syntastic'
+
+" Easy alignment of strings with delimiters
 " :EasyAlign =
-Plugin 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-easy-align'
 
 "  Check syntax in Vim asynchronously and fix files, with Language
 "  Server Protocol (LSP) support
-Plugin 'dense-analysis/ale'
+Plug 'dense-analysis/ale'
 
 " Configurable and extensible tab line and status line
-Plugin 'tpope/vim-flagship'
+Plug 'tpope/vim-flagship'
 
 "  The ultimate snippet solution for Vim. Send pull requests to
 "  SirVer/ultisnips!
-Plugin 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
 
 " This repository contains snippets files for various programming
 " languages.
-Plugin 'honza/vim-snippets'
+Plug 'honza/vim-snippets'
 
 " json pretty printing and manipulation
-Plugin 'tpope/vim-jdaddy'
+Plug 'tpope/vim-jdaddy'
 
 "  surround.vim: Delete/change/add parentheses/quotes/XML-tags/much more
 "  with ease
-Plugin 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
 
 " file browser sorta
 " -
-Plugin 'tpope/vim-vinegar'
+Plug 'tpope/vim-vinegar'
 
 " I make so many Vim plugins I had to make a Vim plugin for making Vim
 " plugins.
-Plugin 'tpope/vim-scriptease'
+Plug 'tpope/vim-scriptease'
 
 " json path navigation
 " Do i need this if i have jdaddy?
-Plugin 'mogelbrod/vim-jsonpath'
+Plug 'mogelbrod/vim-jsonpath'
 
 " A multi-language debugging system for Vim
-Plugin 'puremourning/vimspector'
-
+Plug 'puremourning/vimspector'
 
 " JS/TS
-Plugin 'leafgarland/typescript-vim'
-
-" Python
-Plugin 'fs111/pydoc.vim'
-Plugin 'andviro/flake8-vim'
-Plugin 'tell-k/vim-autoflake'
-Plugin 'fisadev/vim-isort'
-Plugin 'ambv/black'
-
-" Support for running terraform commands
-Plugin 'hashivim/vim-terraform'
-
-" more json support?
-Plugin 'elzr/vim-json'
-
-" Markdown
-Plugin 'mzlogin/vim-markdown-toc'
-Plugin 'iamcco/markdown-preview.nvim'
+Plug 'leafgarland/typescript-vim'
 
 " Not compatible with neovim
-" Plugin 'govim/govim'
+" Plug 'govim/govim'
 
 " Rust
-Plugin 'rust-lang/rust.vim'
+Plug 'rust-lang/rust.vim'
+
+" Python
+Plug 'fs111/pydoc.vim'
+Plug 'andviro/flake8-vim'
+Plug 'tell-k/vim-autoflake'
+Plug 'fisadev/vim-isort'
+Plug 'ambv/black'
+
+" Support for running terraform commands
+Plug 'hashivim/vim-terraform'
+
+" more json support?
+Plug 'elzr/vim-json'
+
+" Markdown
+Plug 'mzlogin/vim-markdown-toc'
+Plug 'iamcco/markdown-preview.nvim'
+
+" LSP All the things
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
+Plug 'neovim/nvim-lspconfig'
 
 " Completion framework
-Plugin 'hrsh7th/nvim-cmp'
-Plugin 'hrsh7th/cmp-buffer'
-" snippet stuff
-Plugin 'quangnguyen30192/cmp-nvim-ultisnips'
-" support signatures
-
-Plugin 'ray-x/lsp_signature.nvim'
-" LSP All the things
-Plugin 'williamboman/mason.nvim'
-Plugin 'williamboman/mason-lspconfig.nvim'
-Plugin 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-buffer'
 
 " LSP completion
-Plugin 'hrsh7th/cmp-nvim-lsp'
-" inlay hints, extra features of rust-analyzer
-Plugin 'simrat39/rust-tools.nvim'
+Plug 'hrsh7th/cmp-nvim-lsp'
 
-Plugin 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+" inlay hints, extra features of rust-analyzer
+Plug 'simrat39/rust-tools.nvim'
+
+" snippet stuff
+Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+
+" support signatures
+Plug 'ray-x/lsp_signature.nvim'
+
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " fuzzy finder file, buffer, mru, tags
-Plugin 'ctrlpvim/ctrlp.vim'
-call vundle#end()
+Plug 'ctrlpvim/ctrlp.vim'
+
+call plug#end()
+" End Plug stuff
 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
