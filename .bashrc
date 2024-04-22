@@ -9,7 +9,7 @@ esac
 
 # Update dotfiles
 if [ -z "$TMUX" ];then
-  pushd $(dirname $(realpath ~/.bashrc)) && git pull --rebase; popd
+	/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME pull --rebase
 fi
 
 if [ -e /usr/share/bash-completion/completions/git ];then
