@@ -40,6 +40,7 @@ wsl.exe --install -d Debian
 ```bash
 git clone --bare git@github.com:blade2005/dotfiles.git ~/.cfg
 git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout main --force
+git --git-dir=$HOME/.cfg/ --work-tree=$HOME config --local status.showUntrackedFiles no
 ```
 
 ## Install script
