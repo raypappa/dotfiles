@@ -167,7 +167,6 @@ filetype plugin indent on
 set softtabstop=2
 set shiftwidth=2
 set tabstop=2
-set textwidth=72
 set expandtab
 " set tabstop=3
 " set shiftwidth=3
@@ -318,9 +317,10 @@ set ruler
 
 " Default line wrapping options - wrap to 80 cols, on by default.
 set textwidth=72
-set wrapmargin=80
+"set wrapmargin=80
+
 " Wrap text by default
-"set formatoptions+=t
+" set formatoptions+=t
 
 " " Highlight all characters past 74th so we can see long lines
 " Actually, there's a vim thing for this now.
