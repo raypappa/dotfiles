@@ -247,7 +247,7 @@ fi
 
 if [ -e ~/.local/bin/polyglot.sh ];then
   export POLYGLOT_SHOW_UNTRACKED=0
-  . $HOM/.local/bin/polyglot.sh
+  . $HOME/.local/bin/polyglot.sh
 fi
 
 # pnpm
