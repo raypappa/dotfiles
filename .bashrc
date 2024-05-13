@@ -242,7 +242,7 @@ if [[ -e /usr/local/bin/aws_completer ]];then
 fi
 
 if [[ -d ~/.local/share/bash-completion ]];then
-  for file in "$(find ~/.local/share/bash-completion -maxdepth 1 -name '*.sh' -print -quit)"; do source $file; done
+  for file in $(find ~/.local/share/bash-completion -maxdepth 1 -name '*.sh' -type f -print -quit); do source $file; done
 fi
 
 if [ -e ~/.local/bin/polyglot.sh ];then
