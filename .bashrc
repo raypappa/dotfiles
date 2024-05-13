@@ -175,33 +175,37 @@ fi
 if [[ -e "$HOME/go/bin" ]];then
   export PATH="$HOME/go/bin:$PATH"
 fi
+
 if [[ -e "$HOME/.local/share/go/bin" ]];then
   export PATH="$HOME/.local/share/go/bin:$PATH"
 fi
 
-export NVM_DIR=~/.nvm
+
 if [[ -e "$HOME/.tfenv/bin" ]];then
   export PATH=~/.tfenv/bin:$PATH
 fi
+
 if [[ -e "$HOME/.pyenv/bin" ]];then
   export PATH=~/.pyenv/bin:$PATH
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
 fi
+
 if [[ -e "$HOME/.rbenv/bin" ]];then
   export PATH=~/.rbenv/bin:$PATH
+  eval "$(rbenv init - bash)"
 fi
 
+export NVM_DIR=~/.nvm
+if [[ -d "$NVM_DIR" ]];then
 
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-eval "$(rbenv init - bash)"
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+  export NVSHIM_AUTO_INSTALL=1
 
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-export NVSHIM_AUTO_INSTALL=1
-
-source <(npm completion)
+  source <(npm completion)
+fi
 
 if [[ -e /c/opscode/chefdk/bin ]];then
   export PATH=/c/opscode/chefdk/bin:$PATH
@@ -237,21 +241,13 @@ if [[ -e /usr/local/bin/aws_completer ]];then
   complete -C '/usr/local/bin/aws_completer' aws
 fi
 
-if [[ -e  ~/.local/share/bash-completion/alacritty.bash ]];then
-  . ~/.local/share/bash-completion/alacritty.bash
-fi
-
-if [[ -e ~/.local/share/bash-completion/task.bash ]];then
-  . ~/.local/share/bash-completion/task.bash
-fi
-
-if [ -e ~/.local/share/bash-completion/tmux.bash ];then
-  source ~/.local/share/bash-completion/tmux.bash
+if [[ -d ~/.local/share/bash-completion ]];then
+  for file in "$(find ~/.local/share/bash-completion -maxdepth 1 -name '*.sh' -print -quit)"; do source $file; done
 fi
 
 if [ -e ~/.local/bin/polyglot.sh ];then
   export POLYGLOT_SHOW_UNTRACKED=0
-  . ~/.local/bin/polyglot.sh
+  . $HOM/.local/bin/polyglot.sh
 fi
 
 # pnpm
