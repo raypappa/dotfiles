@@ -78,3 +78,6 @@ setopt INC_APPEND_HISTORY HIST_IGNORE_DUPS EXTENDED_HISTORY
 alias history="history -i"
 
 ssm() { aws ssm start-session --target "${2}" --profile "${1}" --region us-east-1 }
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
