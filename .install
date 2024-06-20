@@ -311,3 +311,11 @@ function _install_golang() {
   wget -O - https://go.dev/dl/go${GOLANG_VERSION}.linux-amd64.tar.gz | \
     tar -C ~/.local/share -xz
 }
+
+function _install_adr_tools() {
+  if [[ ! -e ~/.local/src/adr-tools ]; then
+    git clone https://github.com/npryce/adr-tools.git \
+      ~/.local/src/adr-tools
+  fi
+  git pull -C ~/.local/src/adr-tools
+}

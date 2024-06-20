@@ -211,6 +211,9 @@ if [[ -e /c/opscode/chefdk/bin ]];then
   export PATH=/c/opscode/chefdk/bin:$PATH
 fi
 
+if [[ -e ~/.local/src/adr-tools/src ]];then
+  export PATH=~/.local/src/adr-tools/src:$PATH
+fi
 
 ###############################################################################
 
