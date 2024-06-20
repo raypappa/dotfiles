@@ -313,9 +313,9 @@ function _install_golang() {
 }
 
 function _install_adr_tools() {
-  if [[ ! -e ~/.local/src/adr-tools ]; then
+  if [[ ! -e ~/.local/src/adr-tools ]]; then
     git clone https://github.com/npryce/adr-tools.git \
       ~/.local/src/adr-tools
   fi
-  git pull -C ~/.local/src/adr-tools
+  git -C ~/.local/src/adr-tools pull
 }
