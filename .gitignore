@@ -24,7 +24,7 @@ tags
 
 .vim/backup/*
 .vim/undo/*
-.config/nvim/bundle/Vundle.vim
-.config/nvim/bundle/plugins
+.config/nvim*/bundle/Vundle.vim
+.config/nvim*/bundle/plugins
 .bashrc.local
 .cfg
