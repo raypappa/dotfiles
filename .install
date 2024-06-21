@@ -220,18 +220,16 @@ function _install_tflint() {
 
 function _install_vim() {
   echo Installing Vim
-  if ! type nvim; then
-    if grep -P --quiet '(?<=ID_LIKE=)debian$' /etc/os-release; then
-      destdir=/usr/share/neovim
-      if [ -d $destdir ];then
-        sudo rm -rf $destdir
-      fi
-      sudo mkdir -p $destdir
-      curl -L -s https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz | sudo tar -xz -C $destdir --strip-components=1
-      if [ -L /usr/local/bin/nvim ];then rm /usr/local/bin/nvim;fi
-      sudo ln -s "$destdir/bin/nvim" "/usr/local/bin/nvim"
-      sudo update-alternatives --install /usr/local/bin/vim vim $(which nvim) 20
+  if uname -s | grep -i linux; then
+    destdir=/usr/share/neovim
+    if [ -d $destdir ];then
+      sudo rm -rf $destdir
     fi
+    sudo mkdir -p $destdir
+    curl -L -s https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz | sudo tar -xz -C $destdir --strip-components=1
+    if [ -L /usr/local/bin/nvim ];then rm /usr/local/bin/nvim;fi
+    sudo ln -s "$destdir/bin/nvim" "/usr/local/bin/nvim"
+    sudo update-alternatives --install /usr/local/bin/vim vim $(which nvim) 20
   fi
 }
 
@@ -318,4 +316,8 @@ function _install_adr_tools() {
       ~/.local/src/adr-tools
   fi
   git -C ~/.local/src/adr-tools pull
+}
+
+function _install_glow() {
+  go install github.com/charmbracelet/glow@latest
 }

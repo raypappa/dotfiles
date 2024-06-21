@@ -31,6 +31,7 @@ _install_gh_cli
 _install_kubectl
 _install_pnpm
 _install_golang
+_install_glow
 
 . ~/.bashrc
 
