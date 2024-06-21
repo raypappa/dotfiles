@@ -218,6 +218,14 @@ return {
         'ansible-language-server',
         -- For docker stuffs ->rvn<-
         'hadolint',
+        -- For markdown
+        'markdownlint',
+        'glow',
+        -- For python
+        'black',
+        -- Spellcheck
+        'cspell',
+        'jq',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
