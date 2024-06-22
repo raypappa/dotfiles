@@ -336,3 +336,7 @@ function _install_ctags() {
   make
   make install # may require extra privileges depending on where to install
 }
+
+function _install_vale() {
+  curl -Ls https://github.com/errata-ai/vale/releases/download/v3.6.0/vale_3.6.0_Linux_64-bit.tar.gz | tar -C $HOME/.local/bin -xz vale
+}
