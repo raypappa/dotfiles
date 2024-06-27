@@ -341,3 +341,8 @@ function _install_ctags() {
 function _install_vale() {
   curl -Ls https://github.com/errata-ai/vale/releases/download/v3.6.0/vale_3.6.0_Linux_64-bit.tar.gz | tar -C $HOME/.local/bin -xz vale
 }
+
+function _install_aws_vault() {
+  wget -O ~/.local/bin/aws-vault  https://github.com/99designs/aws-vault/releases/latest/download/aws-vault-linux-amd64
+  chmod +x ~/.local/bin/aws-vault
+}

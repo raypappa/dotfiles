@@ -32,6 +32,7 @@ _install_kubectl
 _install_pnpm
 _install_golang
 _install_glow
+_install_aws_vault
 
 . ~/.bashrc
 
