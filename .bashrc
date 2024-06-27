@@ -215,6 +215,8 @@ if [[ -e ~/.local/src/adr-tools/src ]];then
   export PATH=~/.local/src/adr-tools/src:$PATH
 fi
 
+export GOPATH=$HOME/go
+
 ###############################################################################
 
 # If we're in the /mnt/c system go home
