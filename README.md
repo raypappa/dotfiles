@@ -51,4 +51,17 @@ Installs a lot of things. It's categorized in functions so it's easy to see from
 
 started having issues with tmux. might need to override `TERM=xterm-256color` instead of `alacritty`
 
+### alacritty on windows
+
+After installing alacritty via Chocolatey you'll need to copy the toml file to the correct location `%APPDATA%\\alacritty` and add the following snippet to the file
+
+```
+[shell]
+args = ["-d Ubuntu", "--cd ~"]
+program = "wsl"
+```
+
+So that alacritty opens wsl instead of powershell by default
+
 ### TODO
+
