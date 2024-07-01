@@ -346,3 +346,15 @@ function _install_aws_vault() {
   wget -O ~/.local/bin/aws-vault  https://github.com/99designs/aws-vault/releases/latest/download/aws-vault-linux-amd64
   chmod +x ~/.local/bin/aws-vault
 }
+
+function _install_ripgrep() {
+  wget https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep_14.1.0-1_amd64.deb -O ripgrep.deb
+  sudo apt install ./ripgrep.deb -y
+  rm -f ripgrep.db
+}
+
+function _install_fd() {
+  wget https://github.com/sharkdp/fd/releases/download/v10.1.0/fd_10.1.0_amd64.deb -O fd.deb
+  sudo apt install ./fd.deb -y
+  rm -f fd.deb
+}

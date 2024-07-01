@@ -33,6 +33,8 @@ _install_pnpm
 _install_golang
 _install_glow
 _install_aws_vault
+_install_ripgrep
+_install_fd
 
 . ~/.bashrc
 
