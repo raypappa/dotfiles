@@ -358,3 +358,7 @@ function _install_fd() {
   sudo apt install ./fd.deb -y
   rm -f fd.deb
 }
+
+function _install_krew_df_pv() {
+  curl https://krew.sh/df-pv | bash
+}

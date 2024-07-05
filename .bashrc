@@ -283,3 +283,6 @@ fi
 export BASHRC_LOADED=1
 
 
+
+# krew path
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
