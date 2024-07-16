@@ -215,7 +215,35 @@ if [[ -e ~/.local/src/adr-tools/src ]];then
   export PATH=~/.local/src/adr-tools/src:$PATH
 fi
 
-export GOPATH=$HOME/go
+gopathremove() {
+  function join_by { local IFS="$1"; shift; echo "$*"; }
+  # Split PATH into array of elements
+
+  IFS=: read -r -a parts <<<"$PATH"
+  # Remove elements identical to parameter
+  parts=(${parts[@]/${1}/bin})
+  # Re-assemble to PATH
+  export PATH=$(join_by : ${parts[*]})
+}
+
+gover() {
+
+  local _gover=$1
+  local default="go-root-not-set"
+  if [[ "${GOROOT-$DEFAULT}" != "$default" ]]; then
+    gopathremove "${GOROOT}"
+    unset GOROOT;
+  fi;
+
+
+  if [[ ! -e ~/sdk/go${1}/bin/go ]]; then
+    go install golang.org/dl/go${_gover}@latest && \
+    go${_gover} download
+  fi;
+
+  export GOROOT="$(go${_gover} env GOROOT)" && \
+  export PATH="${GOROOT}/bin:${PATH}"
+}
 
 ###############################################################################
 
