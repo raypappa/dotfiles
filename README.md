@@ -64,4 +64,3 @@ program = "wsl"
 So that alacritty opens wsl instead of powershell by default
 
 ### TODO
-

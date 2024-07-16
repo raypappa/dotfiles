@@ -16,92 +16,92 @@
 #     session.menuFile: ~/.fluxbox/my-menu
 [begin] (Fluxbox)
 [encoding] {UTF-8}
-      [exec] (urxvt) {urxvt} 
-      [exec] (firefox) {firefox} 
+      [exec] (urxvt) {urxvt}
+      [exec] (firefox) {firefox}
 [submenu] (Terminals)
-      [exec]   (xterm) {xterm} 
-      [exec]   (urxvt) {urxvt} 
-      [exec]   (urxvtc) {urxvtc} 
-      [exec]   (konsole) {konsole} 
+      [exec]   (xterm) {xterm}
+      [exec]   (urxvt) {urxvt}
+      [exec]   (urxvtc) {urxvtc}
+      [exec]   (konsole) {konsole}
 [end]
 [submenu] (Net)
 [submenu] (Browsers)
-      [exec]   (firefox) {firefox} 
-      [exec]   (konqueror) {kfmclient openProfile webbrowsing} 
+      [exec]   (firefox) {firefox}
+      [exec]   (konqueror) {kfmclient openProfile webbrowsing}
 [end]
 [submenu] (IM)
-      [exec]   (pidgin) {pidgin} 
-      [exec]   (gaim) {gaim} 
+      [exec]   (pidgin) {pidgin}
+      [exec]   (gaim) {gaim}
 [end]
 [submenu] (Mail)
-      [exec]   (kmail) {kmail} 
+      [exec]   (kmail) {kmail}
 [end]
 [submenu] (IRC)
-      [exec]   (konversation) {konversation} 
+      [exec]   (konversation) {konversation}
 [end]
 [submenu] (FTP)
-      [exec]   (pftp) {urxvt -e pftp} 
-      [exec]   (ftp) {urxvt -e ftp} 
-      [exec]   (lftp) {urxvt -e lftp} 
+      [exec]   (pftp) {urxvt -e pftp}
+      [exec]   (ftp) {urxvt -e ftp}
+      [exec]   (lftp) {urxvt -e lftp}
 [end]
 [end]
 [submenu] (Editors)
-      [exec]   (kwrite) {kwrite} 
-      [exec]   (nano) {urxvt -e nano} 
-      [exec]   (vim) {urxvt -e vim} 
-      [exec]   (vi) {urxvt -e vi} 
+      [exec]   (kwrite) {kwrite}
+      [exec]   (nano) {urxvt -e nano}
+      [exec]   (vim) {urxvt -e vim}
+      [exec]   (vi) {urxvt -e vi}
 [end]
 [submenu] (File utils)
-      [exec] (konqueror) {kfmclient openProfile filemanagement} 
-      [exec]   (krusader) {krusader} 
+      [exec] (konqueror) {kfmclient openProfile filemanagement}
+      [exec]   (krusader) {krusader}
 [end]
 [submenu] (Multimedia)
 [submenu] (Graphics)
-      [exec]   (xscreensaver-demo) {xscreensaver-demo} 
+      [exec]   (xscreensaver-demo) {xscreensaver-demo}
 [end]
 [submenu] (Audio)
-      [exec]   (kmix) {kmix} 
-      [exec]   (kscd) {kscd} 
-      [exec]   (amarok) {amarok} 
-      [exec]   (alsamixer) {urxvt -e alsamixer} 
+      [exec]   (kmix) {kmix}
+      [exec]   (kscd) {kscd}
+      [exec]   (amarok) {amarok}
+      [exec]   (alsamixer) {urxvt -e alsamixer}
 [end]
 [submenu] (X-utils)
-      [exec]   (editres) {editres} 
-      [exec]   (viewres) {viewres} 
-      [exec] (Reload .Xdefaults) {xrdb -load $HOME/.Xdefaults} 
+      [exec]   (editres) {editres}
+      [exec]   (viewres) {viewres}
+      [exec] (Reload .Xdefaults) {xrdb -load $HOME/.Xdefaults}
 [end]
 [end]
 [submenu] (Office)
-      [exec]   (kcalc) {kcalc} 
+      [exec]   (kcalc) {kcalc}
 [end]
 [submenu] (System Tools)
 [submenu] (Burning)
-      [exec]   (k3b) {k3b} 
+      [exec]   (k3b) {k3b}
 [end]
-      [exec]   (top) {urxvt -e top} 
+      [exec]   (top) {urxvt -e top}
 [end]
 [submenu] (Fluxbox menu)
-      [config] (Configure) 
+      [config] (Configure)
 [submenu] (System Styles) {Choose a style...}
-      [stylesdir] (/usr/share/fluxbox/styles) 
+      [stylesdir] (/usr/share/fluxbox/styles)
 [end]
 [submenu] (User Styles) {Choose a style...}
-      [stylesdir] (~/.fluxbox/styles) 
+      [stylesdir] (~/.fluxbox/styles)
 [end]
-      [workspaces] (Workspace List) 
+      [workspaces] (Workspace List)
 [submenu] (Tools)
-      [exec] (Regen Menu) {fluxbox-generate_menu} 
+      [exec] (Regen Menu) {fluxbox-generate_menu}
 [end]
 [submenu] (Window Managers)
-      [restart] (kde) {startkde} 
+      [restart] (kde) {startkde}
 [end]
-      [exec] (Lock screen) {xscreensaver-command -lock} 
-      [commanddialog] (Fluxbox Command) 
-      [reconfig] (Reload config) 
-      [restart] (Restart) 
-      [exec] (About) {(fluxbox@EXEEXT@ -v; fluxbox@EXEEXT@ -info | sed 1d) | xmessage -file - -center} 
-      [separator] 
-      [exit] (Exit) 
+      [exec] (Lock screen) {xscreensaver-command -lock}
+      [commanddialog] (Fluxbox Command)
+      [reconfig] (Reload config)
+      [restart] (Restart)
+      [exec] (About) {(fluxbox@EXEEXT@ -v; fluxbox@EXEEXT@ -info | sed 1d) | xmessage -file - -center}
+      [separator]
+      [exit] (Exit)
 [end]
 [endencoding]
 [end]

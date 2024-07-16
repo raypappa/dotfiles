@@ -60,11 +60,11 @@ white = "#ffffff"
 # red = "#cb4b16"
 # white = "#fdf6e3"
 # yellow = "#657b83"
-# 
+#
 # [colors.cursor]
 # cursor = "#839496"
 # text = "#002b36"
-# 
+#
 # [colors.normal]
 # black = "#073642"
 # blue = "#268bd2"
@@ -74,7 +74,7 @@ white = "#ffffff"
 # red = "#dc322f"
 # white = "#eee8d5"
 # yellow = "#b58900"
-# 
+#
 # [colors.primary]
 # background = "#002b36"
 # foreground = "#839496"

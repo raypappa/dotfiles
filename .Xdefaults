@@ -91,7 +91,7 @@ urxvt*loginShell: 1
 ! it be one or the other, and xterm does not accept alpha channels.
 !*background: #273f41
 ! urxvt*foreground: #b9b4b4
-! 
+!
 ! ! --- standard colors ---
 ! ! black
 ! urxvt*color0: #000000
@@ -125,8 +125,8 @@ urxvt*loginShell: 1
 ! urxvt*color7: #d9d9d9
 ! ! bright_white
 ! urxvt*color15: #ffffff
-! 
-! 
+!
+!
 ! ! --- special colors ---
 ! !*background: #273f41
 ! *foreground: #b9b4b4
