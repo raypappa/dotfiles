@@ -14,7 +14,7 @@ Set-ExecutionPolicy Bypass -Scope Process -Force;
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
 iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
-choco.exe upgrade -y 7zip.install alacritty alacritty.install audacity awscli cccp chocolatey chocolatey-compatibility.extension chocolatey-core.extension chocolatey-dotnetfx.extension chocolatey-windowsupdate.extension dotnet4.5.2 dotnet4.7.1 dotnetfx firefox git.install go-task greenshot launchy nodejs nodejs.install nosql-workbench openhardwaremonitor powershell-core pwsh rancher-desktop slack sourcetree sublimetext4 sysinternals vcredist140 vcredist2015 vlc.install vscode.install yubikey-manager yubikey-piv-manager zoom
+choco.exe upgrade -y 7zip.install alacritty alacritty.install audacity awscli cccp chocolatey chocolatey-compatibility.extension chocolatey-core.extension chocolatey-dotnetfx.extension chocolatey-windowsupdate.extension dotnet4.5.2 dotnet4.7.1 dotnetfx firefox git.install go-task greenshot ueli nodejs nodejs.install nosql-workbench openhardwaremonitor powershell-core pwsh rancher-desktop slack sourcetree sublimetext4 sysinternals vcredist140 vcredist2015 vlc.install vscode.install yubikey-manager yubikey-piv-manager zoom
 
 refreshenv.cmd
 ```
