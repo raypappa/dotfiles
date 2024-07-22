@@ -32,8 +32,8 @@ items may not be very well maintained
     $dst="$env:APPDATA\alacritty\alacritty.toml"
     $dir=(Split-Path -Parent $dst)
     New-Item -Path "$dir" -Type Directory
-    (New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/blade2005/dotfiles/main/.config/alacritty.toml") | Out-File -FilePath "$dst"
-    (New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/blade2005/dotfiles/main/.config/alacritty.win.toml") | Out-File -Append -FilePath "$dst"
+    (New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/blade2005/dotfiles/main/.config/alacritty.toml") | Out-File -NoNewline -Encoding utf8 -FilePath "$dst"
+    (New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/blade2005/dotfiles/main/.config/alacritty.win.toml") | Out-File -NoNewline -Encoding utf8 -Append -FilePath "$dst"
     ```
     
 ### WSL
