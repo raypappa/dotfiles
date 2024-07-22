@@ -207,6 +207,8 @@ return {
         'tsserver',
         'eslint_d',
         'prettierd',
+        'eslint-lsp',
+        'typescript-language-server',
         'biome', -- This one gets us lsp-signature output in ts.
         -- For rust... ->rvn<-
         'rust-analyzer',
@@ -218,14 +220,31 @@ return {
         'ansible-language-server',
         -- For docker stuffs ->rvn<-
         'hadolint',
+        'dockerfile-language-server',
         -- For markdown
         'markdownlint',
         'glow',
+        'marksman',
         -- For python
         'black',
         -- Spellcheck
         'cspell',
+        -- For json
         'jq',
+        'json-lsp',
+        -- For bash
+        'bash-language-server',
+        -- For ruby
+        'ruby-lsp',
+        -- Github CLI
+        'gh',
+        -- For yaml
+        'yaml-language-server',
+        -- For terraform
+        'terraform-ls',
+        -- Others
+        'spectral-language-server',
+        'taplo',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
