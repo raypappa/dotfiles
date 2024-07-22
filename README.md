@@ -9,16 +9,33 @@ items may not be very well maintained
 
 ### Chocolatey
 
-```powershell
-Set-ExecutionPolicy Bypass -Scope Process -Force;
-[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
-iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+1. Install Chocolatey
 
-choco.exe upgrade -y 7zip.install alacritty alacritty.install audacity awscli cccp chocolatey chocolatey-compatibility.extension chocolatey-core.extension chocolatey-dotnetfx.extension chocolatey-windowsupdate.extension dotnet4.5.2 dotnet4.7.1 dotnetfx firefox git.install go-task greenshot ueli nodejs nodejs.install nosql-workbench openhardwaremonitor powershell-core pwsh rancher-desktop slack sourcetree sublimetext4 sysinternals vcredist140 vcredist2015 vlc.install vscode.install yubikey-manager yubikey-piv-manager zoom
+   ```powershell
+    Set-ExecutionPolicy Bypass -Scope Process -Force;
+    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
+    iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+    ```
 
-refreshenv.cmd
-```
+1. Install Packages
+    ```powershell
+    choco.exe upgrade -y nerd-fonts-FiraMono 7zip.install alacritty alacritty.install audacity awscli cccp chocolatey chocolatey-compatibility.extension chocolatey-core.extension chocolatey-dotnetfx.extension chocolatey-windowsupdate.extension dotnet4.5.2 dotnet4.7.1 dotnetfx firefox git.install go-task greenshot ueli nodejs nodejs.install nosql-workbench openhardwaremonitor powershell-core pwsh rancher-desktop slack sourcetree sublimetext4 sysinternals vcredist140 vcredist2015 vlc.install vscode.install yubikey-manager yubikey-piv-manager zoom 
+    ```
 
+1. Refresh Env after installs
+    ```powershell
+    refreshenv.cmd
+    ```
+
+1. Download the Alacritty Toml
+    ```powershell
+    $dst="$env:APPDATA\alacritty\alacritty.toml"
+    $dir=(Split-Path -Parent $dst)
+    New-Item -Path "$dir" -Type Directory
+    (New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/blade2005/dotfiles/main/.config/alacritty.toml") | Out-File -FilePath "$dst"
+    (New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/blade2005/dotfiles/main/.config/alacritty.win.toml") | Out-File -Append -FilePath "$dst"
+    ```
+    
 ### WSL
 
 ```powershell
