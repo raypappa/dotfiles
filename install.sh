@@ -30,11 +30,14 @@ _configure_global_git
 _install_gh_cli
 _install_kubectl
 _install_pnpm
-_install_golang
 _install_glow
 _install_aws_vault
 _install_ripgrep
 _install_fd
+_install_ctags
+_install_vale
+echo "krew plugin for df-pv available but not installed by default"
+
 
 . ~/.bashrc
 

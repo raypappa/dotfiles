@@ -4,7 +4,6 @@ ALACRITTY_VERSION=v0.13.0
 TERRAFORM_DOCS_VERSION=v0.16.0
 GH_VERSION=2.40.1
 KUBE_VERSION=v1.29
-GOLANG_VERSION=1.22.1
 
 function _install_rbenv() {
   echo Installing Ruby version manager
@@ -57,7 +56,8 @@ function _install_deps() {
     tmux \
     bash-completion \
     autoconf \
-    moreutils
+    moreutils \
+    golang
 
     if [[ "$WSL_DISTRO_NAME" == "Ubuntu" ]];then
       . /etc/os-release
@@ -307,11 +307,6 @@ function _install_pnpm() {
   curl -fsSL https://get.pnpm.io/install.sh | sh -
 }
 
-function _install_golang() {
-  wget -O - https://go.dev/dl/go${GOLANG_VERSION}.linux-amd64.tar.gz | \
-    tar -C ~/.local/share -xz
-}
-
 function _install_adr_tools() {
   if [[ ! -e ~/.local/src/adr-tools ]]; then
     git clone https://github.com/npryce/adr-tools.git \
@@ -349,16 +344,15 @@ function _install_aws_vault() {
 
 function _install_ripgrep() {
   wget https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep_14.1.0-1_amd64.deb -O ripgrep.deb
-  sudo apt install ./ripgrep.deb -y
-  rm -f ripgrep.db
+  sudo apt install ./ripgrep.deb -y && rm -rf ripgrep.db
 }
 
 function _install_fd() {
   wget https://github.com/sharkdp/fd/releases/download/v10.1.0/fd_10.1.0_amd64.deb -O fd.deb
-  sudo apt install ./fd.deb -y
-  rm -f fd.deb
+  sudo apt install ./fd.deb -y && rm -f fd.deb
 }
 
+# Not in the install.sh
 function _install_krew_df_pv() {
   curl https://krew.sh/df-pv | bash
 }
