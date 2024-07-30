@@ -197,6 +197,7 @@ function _install_docker() {
   fi
 
   echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
   sudo apt-get update
   sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 }
@@ -335,6 +336,8 @@ function _install_ctags() {
 
 function _install_vale() {
   curl -Ls https://github.com/errata-ai/vale/releases/download/v3.6.0/vale_3.6.0_Linux_64-bit.tar.gz | tar -C $HOME/.local/bin -xz vale
+  chmod +x $HOME/.local/bin/vale
+  vale sync
 }
 
 function _install_aws_vault() {
