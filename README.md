@@ -52,7 +52,7 @@ wsl.exe --install -d Debian
 
 1. Generate your SSH key
 1. Add ssh key to github
-1. Install git
+1. Install dependencies
 
     - Debian
         ```bash
@@ -94,6 +94,14 @@ wsl.exe --install -d Debian
           autoconf \
           moreutils \
           golang
+        ```
+
+    - MacOS
+
+        ```bash
+         xcode-select --install
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        brew install git fzf nano make unzip wget moreutils zip tmux alacritty bash-completion binutils coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt grep
         ```
 
 1. clone repo in wsl/linux/mac
