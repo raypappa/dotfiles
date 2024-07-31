@@ -42,11 +42,15 @@ function _install_deps() {
 }
 
 function _install_gh_cli() {
-  sudo install -m 644 /dev/null /usr/share/keyrings/githubcli-archive-keyring.gpg
-  curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /usr/share/keyrings/githubcli-archive-keyring.gpg >/dev/null
-  echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-  sudo apt update
-  sudo apt install gh -y
+  if which brew 2>&1 >/dev/null;then
+    brew install gh
+  elif which apt 2>&1 >/dev/null;then
+    sudo install -m 644 /dev/null /usr/share/keyrings/githubcli-archive-keyring.gpg
+    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /usr/share/keyrings/githubcli-archive-keyring.gpg >/dev/null
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+    sudo apt update
+    sudo apt install gh -y
+  fi
 }
 
 function _install_spaceship_prompt() {
@@ -130,17 +134,21 @@ function _install_aws_azure_login() {
 
 function _install_aws() {
   echo Installing AWS CLI
-  local tmpdir=$(mktemp -d)
-  pushd $tmpdir
-  curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-  unzip -q awscliv2.zip
-  if aws --version 2>/dev/null;then
-    sudo ./aws/install --update
-  else
-    sudo ./aws/install
+  if which brew 2>&1 >/dev/null;then
+    brew install awscli
+  elif uname -s | grep -i linux >/dev/null;then
+    local tmpdir=$(mktemp -d)
+    pushd $tmpdir
+    curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    unzip -q awscliv2.zip
+    if aws --version 2>/dev/null;then
+      sudo ./aws/install --update
+    else
+      sudo ./aws/install
+    fi
+    popd
+    rm -rf $tmpdir
   fi
-  popd
-  rm -rf $tmpdir
 }
 
 function _install_lazydocker() {
@@ -150,26 +158,34 @@ function _install_lazydocker() {
 
 function _install_docker() {
   echo Installing Docker
-  sudo apt-get remove docker docker-engine docker.io containerd runc -y
-  sudo groupadd docker
-  sudo usermod -aG docker ${USER}
-  sudo install -m 0755 -d /etc/apt/keyrings
-  if [ ! /etc/apt/keyrings/docker.asc ];then
-    sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
-    sudo chmod a+r /etc/apt/keyrings/docker.asc
+  if which brew 2>&1 >/dev/null;then
+    brew install rancher
+  elif which apt 2>&1 >/dev/null;then
+    sudo apt-get remove docker docker-engine docker.io containerd runc -y
+    sudo groupadd docker
+    sudo usermod -aG docker ${USER}
+    sudo install -m 0755 -d /etc/apt/keyrings
+    if [ ! /etc/apt/keyrings/docker.asc ];then
+      sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+      sudo chmod a+r /etc/apt/keyrings/docker.asc
+    fi
+
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+    sudo apt-get update
+    sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
   fi
-
-  echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-  sudo apt-get update
-  sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 }
 
 function _install_kubectl() {
-  curl -fsSL https://pkgs.k8s.io/core:/stable:/${KUBE_VERSION}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-  echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/${KUBE_VERSION}/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
-  sudo apt update
-  sudo apt install -y kubectl kubeadm
+  if which brew 2>&1 >/dev/null;then
+    brew install kubernetes-cli
+  elif which apt 2>&1 >/dev/null;then
+    curl -fsSL https://pkgs.k8s.io/core:/stable:/${KUBE_VERSION}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+    echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/${KUBE_VERSION}/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+    sudo apt update
+    sudo apt install -y kubectl kubeadm
+  fi
 }
 
 function _install_alacrity_support() {
