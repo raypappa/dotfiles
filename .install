@@ -66,8 +66,8 @@ function _install_aws_azure_login() {
 
 function _install_alacrity_support() {
   echo Installing Alacritty
-  wget -q https://github.com/alacritty/alacritty/releases/download/$ALACRITTY_VERSION/alacritty.bash -O ~/.local/share/bash-completion/alacritty.bash
-  curl -s https://github.com/alacritty/alacritty/releases/download/$ALACRITTY_VERSION/alacritty.info | sudo tic -xe alacritty,alacritty-direct -
+  wget -q https://github.com/alacritty/alacritty/releases/latest/download/alacritty.bash -O ~/.local/share/bash-completion/alacritty.bash
+  curl -s https://github.com/alacritty/alacritty/releases/latest/download/alacritty.info | sudo tic -xe alacritty,alacritty-direct -
   infocmp alacritty 2>&1 >/dev/null
 }
 
