@@ -7,6 +7,24 @@ case $- in
       *) return;;
 esac
 
+#-------
+# DESC: Adds a directory to the PATH if it's not already in the PATH
+# ARGS:
+#  1 - The directory to add
+#  2 - Which end of PATH to add to.  Use "front" to prepend.
+#-------
+add2path() {
+  if ! echo $PATH | egrep "(^|:)$1(:|\$)" > /dev/null ; then
+    if [[ $2 = "front" ]]; then
+      PATH="$1:$PATH"
+    else
+      PATH="$PATH:$1"
+    fi
+
+    export PATH
+  fi
+}
+
 # Update dotfiles
 if [ -z "$TMUX" ];then
 	/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME pull --rebase
@@ -165,36 +183,34 @@ fi;
 # Be safe with MacOS paths.. yeah
 if [[ -e "${HOME}/Library/Python" ]]; then
   for entry in $(find "${HOME}/Library/Python" -maxdepth 2 -iname 'bin' -type d); do
-    export PATH="${entry}:${PATH}"
+    add2path "${entry}" "front"
   done
 fi
-if [[ -e "$HOME/.local/bin" ]];then
-  export PATH=~/.local/bin:$PATH
-fi
 
-if [[ -e "$HOME/.tfenv/bin" ]];then
-  export PATH=~/.tfenv/bin:$PATH
-fi
+export GOENV_ROOT="$HOME/.goenv"
+export NVM_DIR="$HOME/.nvm"
+
+add2path "$HOME/.local/bin" front
+add2path "$HOME/.tfenv/bin" front
+add2path "$HOME/.pyenv/bin" front
+add2path "$HOME/.rbenv/bin" front
+add2path "$GOENV_ROOT/bin" front
+add2path "${KREW_ROOT:-$HOME/.krew}/bin" front
 
 if [[ -e "$HOME/.pyenv/bin" ]];then
-  export PATH=~/.pyenv/bin:$PATH
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
 fi
 
 if [[ -e "$HOME/.rbenv/bin" ]];then
-  export PATH=~/.rbenv/bin:$PATH
   eval "$(rbenv init - bash)"
 fi
 
 # goenv support
-export GOENV_ROOT="$HOME/.goenv"
-export PATH="$GOENV_ROOT/bin:$PATH"
 if [ -d "$GOENV_ROOT" ];then
   eval "$(goenv init -)"
 fi
 
-export NVM_DIR=~/.nvm
 if [[ -d "$NVM_DIR" ]];then
 
   [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -205,43 +221,7 @@ if [[ -d "$NVM_DIR" ]];then
   source <(npm completion)
 fi
 
-if [[ -e /c/opscode/chefdk/bin ]];then
-  export PATH=/c/opscode/chefdk/bin:$PATH
-fi
-
-if [[ -e ~/.local/src/adr-tools/src ]];then
-  export PATH=~/.local/src/adr-tools/src:$PATH
-fi
-
-gopathremove() {
-  function join_by { local IFS="$1"; shift; echo "$*"; }
-  # Split PATH into array of elements
-
-  IFS=: read -r -a parts <<<"$PATH"
-  # Remove elements identical to parameter
-  parts=(${parts[@]/${1}/bin})
-  # Re-assemble to PATH
-  export PATH=$(join_by : ${parts[*]})
-}
-
-gover() {
-
-  local _gover=$1
-  local default="go-root-not-set"
-  if [[ "${GOROOT-$DEFAULT}" != "$default" ]]; then
-    gopathremove "${GOROOT}"
-    unset GOROOT;
-  fi;
-
-
-  if [[ ! -e ~/sdk/go${1}/bin/go ]]; then
-    go install golang.org/dl/go${_gover}@latest && \
-    go${_gover} download
-  fi;
-
-  export GOROOT="$(go${_gover} env GOROOT)" && \
-  export PATH="${GOROOT}/bin:${PATH}"
-}
+add2path /c/opscode/chefdk/bin
 
 ###############################################################################
 
@@ -253,20 +233,6 @@ fi
 if [[ -e ~/.cargo/env ]];then
   . ~/.cargo/env
 fi
-
-# if [[ "$WSL_DISTRO_NAME" == "Ubuntu" || "$WSL_DISTRO_NAME" == "Debian" ]] && [[ "$NO_WSL_DOCKER" != "true" ]];then
-#   DOCKER_DISTRO="$WSL_DISTRO_NAME"
-#   DOCKER_DIR=/mnt/wsl/shared-docker
-#   DOCKER_SOCK="$DOCKER_DIR/docker.sock"
-#   export DOCKER_HOST="unix://$DOCKER_SOCK"
-#   if [ ! -d "$DOCKER_DIR" ]; then
-#     mkdir -pm o=,ug=rwx "$DOCKER_DIR"
-#     sudo chgrp docker "$DOCKER_DIR"
-#   fi
-#   if [ ! -S "$DOCKER_SOCK" ]; then
-#     /mnt/c/Windows/System32/wsl.exe -d $DOCKER_DISTRO sh -c "nohup sudo -b dockerd < /dev/null > $DOCKER_DIR/dockerd.log 2>&1"
-#   fi
-# fi
 
 if [[ -e /usr/local/bin/aws_completer ]];then
   complete -C '/usr/local/bin/aws_completer' aws
@@ -289,20 +255,6 @@ case ":$PATH:" in
 esac
 # pnpm end
 
-if [ -n "$PATH" ]; then
-  old_PATH=$PATH:; PATH=
-  while [ -n "$old_PATH" ]; do
-    x=${old_PATH%%:*}       # the first remaining entry
-    case $PATH: in
-      *:"$x":*) ;;          # already there
-      *) PATH=$PATH:$x;;    # not there yet
-    esac
-    old_PATH=${old_PATH#*:}
-  done
-  PATH=${PATH#:}
-  unset old_PATH x
-fi
-
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
@@ -311,4 +263,3 @@ export BASHRC_LOADED=1
 
 
 # krew path
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
