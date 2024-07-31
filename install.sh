@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 . .install
 
 _install_deps
