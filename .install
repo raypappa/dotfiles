@@ -66,7 +66,8 @@ function _install_aws_azure_login() {
 
 function _install_alacrity_support() {
   echo Installing Alacritty
-  wget -q https://github.com/alacritty/alacritty/releases/latest/download/alacritty.bash -O ~/.local/share/bash-completion/alacritty.bash
+  wget -q https://github.com/alacritty/alacritty/releases/latest/download/alacritty.bash -O $HOME/.local/share/bash-completion/alacritty.bash
+  chmod +x $HOME/.local/share/bash-completion/alacritty.bash
   curl -s https://github.com/alacritty/alacritty/releases/latest/download/alacritty.info | sudo tic -xe alacritty,alacritty-direct -
   infocmp alacritty 2>&1 >/dev/null
 }
@@ -94,7 +95,8 @@ function _install_nvshim() {
 }
 
 function _install_tmux_completions() {
-  wget -O ~/.local/share/bash-completion/tmux.bash https://raw.githubusercontent.com/imomaliev/tmux-bash-completion/master/completions/tmux
+  wget -O $HOME/.local/share/bash-completion/tmux.bash https://raw.githubusercontent.com/imomaliev/tmux-bash-completion/master/completions/tmux
+  chmod +x $HOME/.local/share/bash-completion/tmux.bash
 }
 
 

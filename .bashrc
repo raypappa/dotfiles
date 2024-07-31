@@ -159,6 +159,23 @@ if ! shopt -oq posix; then
   fi
 fi
 
+if type brew &>/dev/null
+then
+  HOMEBREW_PREFIX="$(brew --prefix)"
+
+  if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]
+  then
+    source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+  else
+    for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*
+    do
+      [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
+    done
+  fi
+
+fi
+
+
 if uname -r | grep -iq wsl;then
     export BROWSER='wslview';
     export PATH=/mnt/c/opscode/chefdk/bin:$PATH
@@ -176,10 +193,6 @@ if [[ -e ~/.bashrc.local ]];then
   . ~/.bashrc.local
 fi
 
-if [[ -e /opt/homebrew/bin/brew ]]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-fi;
-
 # Be safe with MacOS paths.. yeah
 if [[ -e "${HOME}/Library/Python" ]]; then
   for entry in $(find "${HOME}/Library/Python" -maxdepth 2 -iname 'bin' -type d); do
@@ -191,7 +204,7 @@ export GOENV_ROOT="$HOME/.goenv"
 export NVM_DIR="$HOME/.nvm"
 
 for brew_prefix in /opt/homebrew /usr/local /home/linuxbrew/.linuxbrew; do
-  if [[ -d "$brew_prefix" ]];then
+  if [[ -e "$brew_prefix/bin/brew" ]];then
     eval "$($brew_prefix/bin/brew shellenv)"
   fi
 done
@@ -203,12 +216,12 @@ add2path "$HOME/.rbenv/bin" front
 add2path "$GOENV_ROOT/bin" front
 add2path "${KREW_ROOT:-$HOME/.krew}/bin" front
 
-if [[ -e "$HOME/.pyenv/bin" ]];then
+if type pyenv &>/dev/null ;then
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
 fi
 
-if [[ -e "$HOME/.rbenv/bin" ]];then
+if type rbenv &>/dev/null;then
   eval "$(rbenv init - bash)"
 fi
 
