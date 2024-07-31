@@ -17,7 +17,7 @@ function _source_bashrc() {
 
 function _install_deps() {
   echo Installing dependencies
-  brew install fzf nano gcc moreutils tmux tflint gh rbenv pyenv spaceship polyglot zsh pyenv poetry pipx tfenv nvm awscli lazydocker docker docker-completion docker-buildx neovim tflint kubectl aws-sam-cli terraform-docs go-task pipx pnpm glow ctags vale aws-vault ripgrep fd goenv rustup
+  brew install fzf nano gcc moreutils tmux tflint gh rbenv pyenv spaceship polyglot zsh pyenv poetry pipx tfenv awscli lazydocker docker docker-completion docker-buildx neovim tflint kubectl aws-sam-cli terraform-docs go-task pipx pnpm glow ctags vale aws-vault ripgrep fd goenv rustup
   if [[ "$WSL_DISTRO_NAME" == "Ubuntu" ]];then
     . /etc/os-release
     # Starting from Ubuntu 22.04 LTS, Ubuntu on WSL no longer bundled with wslu. Please install the PPA version.
@@ -35,6 +35,15 @@ function _install_deps() {
     sudo apt update
     sudo apt install wslu -y
   fi
+}
+
+function _install_nvm() {
+  curl -s -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+  export NVM_DIR=~/.nvm
+  [ -s $NVM_DIR/nvm.sh ] && . $NVM_DIR/nvm.sh  # This loads nvm
+  [ -s $NVM_DIR/bash_completion ] && . $NVM_DIR/bash_completion  # This loads nvm bash_completion
+  nvm install --lts --latest-npm
+  source <(npm completion)
 }
 
 function _install_cspell() {
