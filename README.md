@@ -59,54 +59,22 @@ wsl.exe --install -d Debian
         apt update
         apt upgrade -y
         apt-get remove -y --purge 'vim*'
-        apt install -y \
-          git \
-          sudo \
-          apt-transport-https \
-          build-essential \
-          ca-certificates \
-          curl \
-          git \
-          fzf \
-          keychain \
-          libbz2-dev \
-          libffi-dev \
-          libffi-dev \
-          liblzma-dev \
-          libncursesw5-dev \
-          libreadline-dev \
-          libsqlite3-dev \
-          libssl-dev \
-          libxml2-dev \
-          libxmlsec1-dev \
-          llvm \
-          make \
-          nano \
-          software-properties-common \
-          tk-dev \
-          unzip \
-          wget \
-          xz-utils \
-          zip \
-          zlib1g-dev \
-          tmux \
-          bash-completion \
-          autoconf \
-          moreutils \
-          golang
+        apt install -y sudo build-essential curl git wget zip unzip bash-completion procps openssh-client
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         ```
 
     - MacOS
-
         ```bash
          xcode-select --install
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-        brew install git fzf nano make unzip wget moreutils zip tmux alacritty bash-completion binutils coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt grep
+        brew install git make unzip wget moreutils zip bash-completion binutils coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt grep openssh
+        brew install --cask alacritty
         ```
 
 1. clone repo in wsl/linux/mac
 
 ```bash
+git config --global init.defaultBranch main
 git clone --bare git@github.com:blade2005/dotfiles.git ~/.cfg
 git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout main --force
 git --git-dir=$HOME/.cfg/ --work-tree=$HOME config --local status.showUntrackedFiles no

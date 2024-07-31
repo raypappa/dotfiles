@@ -190,6 +190,12 @@ fi
 export GOENV_ROOT="$HOME/.goenv"
 export NVM_DIR="$HOME/.nvm"
 
+for brew_prefix in /opt/homebrew /usr/local /home/linuxbrew/.linuxbrew; do
+  if [[ -d "$brew_prefix" ]];then
+    eval "$($brew_prefix/bin/brew shellenv)"
+  fi
+done
+
 add2path "$HOME/.local/bin" front
 add2path "$HOME/.tfenv/bin" front
 add2path "$HOME/.pyenv/bin" front
