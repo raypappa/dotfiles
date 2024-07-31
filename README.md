@@ -59,7 +59,7 @@ wsl.exe --install -d Debian
         apt update
         apt upgrade -y
         apt-get remove -y --purge 'vim*'
-        apt install -y sudo build-essential curl git wget zip unzip bash-completion procps openssh-client
+        apt install -y sudo build-essential curl git wget zip unzip bash-completion procps openssh-client locales
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         ```
 
