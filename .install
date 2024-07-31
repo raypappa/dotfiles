@@ -11,6 +11,10 @@ function confirm() {
     fi
 }
 
+function _source_bashrc() {
+  . "$HOME/.bashrc"
+}
+
 function _install_deps() {
   echo Installing dependencies
   brew install fzf nano gcc moreutils tmux tflint gh rbenv pyenv spaceship polyglot zsh pyenv poetry pipx tfenv nvm awscli lazydocker docker docker-completion docker-buildx neovim tflint kubectl aws-sam-cli terraform-docs go-task pipx pnpm glow ctags vale aws-vault ripgrep fd goenv rustup
