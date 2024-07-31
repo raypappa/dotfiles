@@ -55,9 +55,45 @@ wsl.exe --install -d Debian
 1. Install git
 
     - Debian
-        
         ```bash
-        sudo apt install git -y
+        apt update
+        apt upgrade -y
+        apt-get remove -y --purge 'vim*'
+        apt install -y \
+          git \
+          sudo \
+          apt-transport-https \
+          build-essential \
+          ca-certificates \
+          curl \
+          git \
+          fzf \
+          keychain \
+          libbz2-dev \
+          libffi-dev \
+          libffi-dev \
+          liblzma-dev \
+          libncursesw5-dev \
+          libreadline-dev \
+          libsqlite3-dev \
+          libssl-dev \
+          libxml2-dev \
+          libxmlsec1-dev \
+          llvm \
+          make \
+          nano \
+          software-properties-common \
+          tk-dev \
+          unzip \
+          wget \
+          xz-utils \
+          zip \
+          zlib1g-dev \
+          tmux \
+          bash-completion \
+          autoconf \
+          moreutils \
+          golang
         ```
 
 1. clone repo in wsl/linux/mac
