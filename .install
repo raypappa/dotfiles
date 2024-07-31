@@ -73,14 +73,8 @@ function _install_alacrity_support() {
 
 
 function _configure_nvim() {
-  echo Configuring Vim
-  hash -r
-  if ! type nvim; then
-    echo "Neovim not installed"
-    return
-  fi
-
-  neovim +PlugInstall +qall
+  echo Configuring NeoVim
+  nvim +PlugInstall +qall
 }
 
 function _start_ssh_agent() {
