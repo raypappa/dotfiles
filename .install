@@ -22,60 +22,62 @@ function _install_rbenv() {
 
 function _install_deps() {
   echo Installing dependencies
-  sudo apt update
-  sudo apt upgrade -y
-  sudo apt-get remove -y --purge 'vim*'
-  sudo apt install -y \
-    apt-transport-https \
-    build-essential \
-    ca-certificates \
-    curl \
-    git \
-    fzf \
-    keychain \
-    libbz2-dev \
-    libffi-dev \
-    libffi-dev \
-    liblzma-dev \
-    libncursesw5-dev \
-    libreadline-dev \
-    libsqlite3-dev \
-    libssl-dev \
-    libxml2-dev \
-    libxmlsec1-dev \
-    llvm \
-    make \
-    nano \
-    software-properties-common \
-    tk-dev \
-    unzip \
-    wget \
-    xz-utils \
-    zip \
-    zlib1g-dev \
-    tmux \
-    bash-completion \
-    autoconf \
-    moreutils \
-    golang
+  if which apt > /dev/null; then
+    sudo apt update
+    sudo apt upgrade -y
+    sudo apt-get remove -y --purge 'vim*'
+    sudo apt install -y \
+      apt-transport-https \
+      build-essential \
+      ca-certificates \
+      curl \
+      git \
+      fzf \
+      keychain \
+      libbz2-dev \
+      libffi-dev \
+      libffi-dev \
+      liblzma-dev \
+      libncursesw5-dev \
+      libreadline-dev \
+      libsqlite3-dev \
+      libssl-dev \
+      libxml2-dev \
+      libxmlsec1-dev \
+      llvm \
+      make \
+      nano \
+      software-properties-common \
+      tk-dev \
+      unzip \
+      wget \
+      xz-utils \
+      zip \
+      zlib1g-dev \
+      tmux \
+      bash-completion \
+      autoconf \
+      moreutils \
+      golang
 
-    if [[ "$WSL_DISTRO_NAME" == "Ubuntu" ]];then
-      . /etc/os-release
-      # Starting from Ubuntu 22.04 LTS, Ubuntu on WSL no longer bundled with wslu. Please install the PPA version.
-      if [[ "$VERSION_ID" == "22.04" ]];then
-        sudo apt install ubuntu-wsl -y
-        sudo add-apt-repository ppa:wslutilities/wslu -y
-        sudo apt update
-        sudo apt install wslu -y
-      fi
-
-    elif [[ "$WSL_DISTRO_NAME" == "Debian" ]];then
-      sudo apt install gnupg2 apt-transport-https -y
-      wget -O - https://pkg.wslutiliti.es/public.key | sudo tee /etc/apt/trusted.gpg.d/wslu.asc
-      echo "deb https://pkg.wslutiliti.es/debian $(. /etc/os-release && echo "$VERSION_CODENAME") main" | sudo tee /etc/apt/sources.list.d/wslu.list
+  fi
+  if [[ "$WSL_DISTRO_NAME" == "Ubuntu" ]];then
+    . /etc/os-release
+    # Starting from Ubuntu 22.04 LTS, Ubuntu on WSL no longer bundled with wslu. Please install the PPA version.
+    if [[ "$VERSION_ID" == "22.04" ]];then
+      sudo apt install ubuntu-wsl -y
+      sudo add-apt-repository ppa:wslutilities/wslu -y
       sudo apt update
       sudo apt install wslu -y
     fi
+
+  elif [[ "$WSL_DISTRO_NAME" == "Debian" ]];then
+    sudo apt install gnupg2 apt-transport-https -y
+    wget -O - https://pkg.wslutiliti.es/public.key | sudo tee /etc/apt/trusted.gpg.d/wslu.asc
+    echo "deb https://pkg.wslutiliti.es/debian $(. /etc/os-release && echo "$VERSION_CODENAME") main" | sudo tee /etc/apt/sources.list.d/wslu.list
+    sudo apt update
+    sudo apt install wslu -y
+  fi
 }
 
 function _install_gh_cli() {
