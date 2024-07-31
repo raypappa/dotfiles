@@ -172,15 +172,6 @@ if [[ -e "$HOME/.local/bin" ]];then
   export PATH=~/.local/bin:$PATH
 fi
 
-if [[ -e "$HOME/go/bin" ]];then
-  export PATH="$HOME/go/bin:$PATH"
-fi
-
-if [[ -e "$HOME/.local/share/go/bin" ]];then
-  export PATH="$HOME/.local/share/go/bin:$PATH"
-fi
-
-
 if [[ -e "$HOME/.tfenv/bin" ]];then
   export PATH=~/.tfenv/bin:$PATH
 fi
@@ -194,6 +185,13 @@ fi
 if [[ -e "$HOME/.rbenv/bin" ]];then
   export PATH=~/.rbenv/bin:$PATH
   eval "$(rbenv init - bash)"
+fi
+
+# goenv support
+export GOENV_ROOT="$HOME/.goenv"
+export PATH="$GOENV_ROOT/bin:$PATH"
+if [ -d "$GOENV_ROOT" ];then
+  eval "$(goenv init -)"
 fi
 
 export NVM_DIR=~/.nvm

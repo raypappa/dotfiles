@@ -359,3 +359,11 @@ function _install_fd() {
 function _install_krew_df_pv() {
   curl https://krew.sh/df-pv | bash
 }
+
+function _install_goenv() {
+  if [ -d ~/.goenv ];then
+    git -C ~/.goenv pull
+  else
+    git clone https://github.com/go-nv/goenv.git ~/.goenv
+  fi
+}
