@@ -52,6 +52,14 @@ wsl.exe --install -d Debian
 
 1. Generate your SSH key
 1. Add ssh key to github
+1. Install git
+
+    - Debian
+        
+        ```bash
+        sudo apt install git -y
+        ```
+
 1. clone repo in wsl/linux/mac
 
 ```bash
