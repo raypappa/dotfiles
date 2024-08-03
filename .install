@@ -17,7 +17,7 @@ function _source_bashrc() {
 
 function _install_deps() {
   echo Installing dependencies
-  brew install fzf nano gcc moreutils tmux tflint gh rbenv pyenv spaceship polyglot zsh pyenv poetry pipx tfenv awscli lazydocker docker docker-completion docker-buildx neovim tflint kubectl aws-sam-cli terraform-docs go-task pipx pnpm glow ctags vale aws-vault ripgrep fd goenv rustup pyenv-virtualenv
+  brew install fzf nano gcc moreutils tmux tflint gh rbenv pyenv spaceship zsh pyenv poetry pipx tfenv awscli lazydocker docker docker-completion docker-buildx neovim tflint kubectl aws-sam-cli terraform-docs go-task pipx pnpm glow ctags vale aws-vault ripgrep fd goenv rustup pyenv-virtualenv
   if [[ "$WSL_DISTRO_NAME" == "Ubuntu" ]];then
     . /etc/os-release
     # Starting from Ubuntu 22.04 LTS, Ubuntu on WSL no longer bundled with wslu. Please install the PPA version.
@@ -114,3 +114,6 @@ function _install_krew_df_pv() {
   curl https://krew.sh/df-pv | bash
 }
 
+function _install_bash_it() {
+  git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
+}
