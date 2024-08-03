@@ -81,8 +81,6 @@ export SCM_CHECK=true
 # Uncomment this to make Bash-it create alias reload.
 # export BASH_IT_RELOAD_LEGACY=1
 
-# Load Bash It
-source "$BASH_IT"/bash_it.sh
 
 #-------
 # DESC: Adds a directory to the PATH if it's not already in the PATH
@@ -220,6 +218,8 @@ unset color_prompt force_color_prompt
 #     ;;
 # esac
 
+# Load Bash It
+source "$BASH_IT"/bash_it.sh
 ###############################################################################
 
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -336,11 +336,6 @@ fi
 
 if [[ -d ~/.local/share/bash-completion ]];then
   for file in $(find ~/.local/share/bash-completion -maxdepth 1 -name '*.sh' -type f -print -quit); do source $file; done
-fi
-
-if [ -e ~/.local/bin/polyglot.sh ];then
-  export POLYGLOT_SHOW_UNTRACKED=0
-  . $HOME/.local/bin/polyglot.sh
 fi
 
 # pnpm
