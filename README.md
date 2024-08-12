@@ -7,35 +7,36 @@ items may not be very well maintained
 
 ## Bootstrap on Windows
 
-### Chocolatey
-
-1. Install Chocolatey
-
-   ```powershell
-    Set-ExecutionPolicy Bypass -Scope Process -Force;
-    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
-    iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-    ```
-
+1. Open a User Powershell terminal
 1. Install Packages
     ```powershell
-    choco.exe upgrade -y nerd-fonts-FiraMono 7zip.install alacritty alacritty.install audacity awscli cccp chocolatey chocolatey-compatibility.extension chocolatey-core.extension chocolatey-dotnetfx.extension chocolatey-windowsupdate.extension dotnet4.5.2 dotnet4.7.1 dotnetfx firefox git.install go-task greenshot ueli nodejs nodejs.install nosql-workbench openhardwaremonitor powershell-core pwsh rancher-desktop slack sourcetree sublimetext4 sysinternals vcredist140 vcredist2015 vlc.install vscode.install yubikey-manager yubikey-piv-manager zoom 
+    winget install -h --accept-package-agreements -e Alacritty.Alacritty 7zip.7zip Amazon.AWSCLI Audacity.Audacity CodecGuide.K-LiteCodecPack.Standard Chocolatey.Chocolatey Mozilla.Firefox  AgileBits.1Password AgileBits.1Password.CLI Git.Git Greenshot.Greenshot Task.Task OliverSchwendener.ueli Amazon.NoSQLWorkbench suse.RancherDesktop SlackTechnologies.Slack VideoLAN.VLC Microsoft.VisualStudioCode Microsoft.VisualStudioCode.CLI Yubico.Piv-Tool Yubico.YubikeyManager Yubico.YubiKeyManagerCLI Yubico.YubiKeyPersonalizationTool Microsoft.PowerShell Microsoft.WindowsTerminal  Atlassian.Sourcetree Joplin.Joplin Zoom.Zoom OpenJS.NodeJS
+    winget install -h --accept-package-agreements sysinternals
     ```
 
-1. Refresh Env after installs
+1. Close the User Powershell terminal and open an Admin Powershell terminal
+
+1. Install the chocolatey based packages(mostly nerd fonts)
+   ```powershell
+   choco upgrade -y nerd-fonts-FiraMono chocolatey chocolatey-compatibility.extension chocolatey-core.extension chocolatey-dotnetfx.extension chocolatey-windowsupdate.extension  openhardwaremonitor
+   ```
+
+1. Close the Admin Powershell and open a fresh user terminal.
+
+1. In a new User Powershell download the Alacritty Toml
     ```powershell
-    refreshenv.cmd
+    $dst="$env:APPDATA\alacritty\alacritty.toml";
+    $dir=(Split-Path -Parent $dst);
+    New-Item -Path "$dir" -Type Directory;
+    (New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/blade2005/dotfiles/main/.config/alacritty.toml") | Out-File -NoNewline -Encoding utf8 -FilePath "$dst";
+    (New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/blade2005/dotfiles/main/.config/alacritty.win.toml") | Out-File -NoNewline -Encoding utf8 -Append -FilePath "$dst";
     ```
 
-1. Download the Alacritty Toml
-    ```powershell
-    $dst="$env:APPDATA\alacritty\alacritty.toml"
-    $dir=(Split-Path -Parent $dst)
-    New-Item -Path "$dir" -Type Directory
-    (New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/blade2005/dotfiles/main/.config/alacritty.toml") | Out-File -NoNewline -Encoding utf8 -FilePath "$dst"
-    (New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/blade2005/dotfiles/main/.config/alacritty.win.toml") | Out-File -NoNewline -Encoding utf8 -Append -FilePath "$dst"
-    ```
-    
+1. Configure Rancher
+   ```powershell
+   rdctl list-settings
+   rdctl 
+   ```
 ### WSL
 
 ```powershell
