@@ -35,7 +35,7 @@ items may not be very well maintained
 1. Configure Rancher
    ```powershell
    rdctl list-settings
-   rdctl 
+   rdctl
    ```
 ### WSL
 
