@@ -6,7 +6,7 @@ function confirm() {
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
         return 0
-    else 
+    else
         return 1
     fi
 }
