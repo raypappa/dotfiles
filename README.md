@@ -59,17 +59,7 @@ wsl.exe --install -d Debian
         ```bash
         apt update
         apt upgrade -y
-        apt-get remove -y --purge 'vim*'
         apt install -y sudo build-essential curl git wget zip unzip bash-completion procps openssh-client locales
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-        ```
-
-    - MacOS
-        ```bash
-         xcode-select --install
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-        brew install git make unzip wget moreutils zip bash-completion binutils coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt grep openssh
-        brew install --cask alacritty
         ```
 
 1. clone repo in wsl/linux/mac
