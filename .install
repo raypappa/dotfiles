@@ -148,7 +148,7 @@ function _install_alacrity_support() {
   echo Installing Alacritty
   wget -q https://github.com/alacritty/alacritty/releases/latest/download/alacritty.bash -O $HOME/.local/share/bash-completion/alacritty.bash
   chmod +x $HOME/.local/share/bash-completion/alacritty.bash
-  curl -s https://github.com/alacritty/alacritty/releases/latest/download/alacritty.info | sudo tic -xe alacritty,alacritty-direct -
+  curl -L -s https://github.com/alacritty/alacritty/releases/latest/download/alacritty.info | sudo tic -xe alacritty,alacritty-direct -
   infocmp alacritty 2>&1 >/dev/null
 }
 
