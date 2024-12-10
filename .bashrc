@@ -105,10 +105,6 @@ if [ -z "$TMUX" ];then
 	/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME pull --rebase
 fi
 
-if [ -e /usr/share/bash-completion/completions/git ];then
-  . /usr/share/bash-completion/completions/git
-fi
-
 if [[ ( -z "${SSH_AGENT_PID}"  && -z "${SSH_AUTH_SOCK}" ) ]]; then
   echo Sourcing agent file
         . ~/.agent;
@@ -224,7 +220,6 @@ source "$BASH_IT"/bash_it.sh
 
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -233,25 +228,10 @@ if ! shopt -oq posix; then
     . /usr/share/bash-completion/bash_completion
   elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
-  fi
-fi
-
-if type brew &>/dev/null
-then
-  HOMEBREW_PREFIX="$(brew --prefix)"
-
-  if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]
-  then
-    source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
   else
-    for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*
-    do
-      [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
-    done
+    echo "bash-completion not found" >/dev/stderr
   fi
-
 fi
-
 
 if uname -r | grep -iq wsl;then
     export BROWSER='wslview';
@@ -264,7 +244,6 @@ fi
 
 ###############################################################################
 # Shell tooling
-
 
 if [[ -e ~/.bashrc.local ]];then
   . ~/.bashrc.local
