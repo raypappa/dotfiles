@@ -215,7 +215,9 @@ unset color_prompt force_color_prompt
 # esac
 
 # Load Bash It
-source "$BASH_IT"/bash_it.sh
+if [[ -e "$BASH_IT"/bash_it.sh ]];then
+  source "$BASH_IT"/bash_it.sh
+fi
 ###############################################################################
 
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
