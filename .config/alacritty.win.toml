@@ -1,3 +1,5 @@
-[shell]
+[terminal]
+
+[terminal.shell]
 args = ["-d Debian"]
 program = "wsl"
