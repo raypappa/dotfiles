@@ -51,34 +51,32 @@ wsl.exe --install -d Debian
 
 ## Pre-requisites
 
-1. Generate your SSH key
-1. Add ssh key to github
-1. Install dependencies
+1. On MacOS only: Install homebrew
 
-    - Debian
-        ```bash
-        apt update
-        apt upgrade -y
-        apt install -y sudo build-essential curl git wget zip unzip bash-completion procps openssh-client locales
-        ```
+    ```shell
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    ```
 
-1. clone repo in wsl/linux/mac
+1. Install uv
 
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-git config --global init.defaultBranch main
-git clone --bare git@github.com:blade2005/dotfiles.git ~/.cfg
-git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout main --force
-git --git-dir=$HOME/.cfg/ --work-tree=$HOME config --local status.showUntrackedFiles no
-```
+    ```shell
+    UV_UNMANAGED_INSTALL=1 UV_NO_MODIFY_PATH=1 curl -LsSf https://astral.sh/uv/install.sh | sh
+    ```
 
-## Install script
+## Install
 
-Installs a lot of things. It's categorized in functions so it's easy to see from the [install](./install.sh) script.
+1. Execute ansible with uv
 
-```bash
-~/install.sh
-```
+    ```shell
+    sudo -v
+    uv tool run --from ansible-core ansible-pull -U https://github.com/raypappa/ansible-role-dev-server.git -i localhost playbook.yaml
+    ```
+
+1. Ensure we only see tracked files
+
+    ```shell
+    git --git-dir=$HOME/.cfg/ --work-tree=$HOME config --local status.showUntrackedFiles no
+    ```
 
 ### tmux
 
