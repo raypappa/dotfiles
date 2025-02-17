@@ -1,11 +1,16 @@
+add2path() {
+  if ! (($path[(Ie)$1])); then
+    if [[ $2 == "front" ]]; then
+      path=($1 $path)
+    else
+      path+=($1)
+    fi
+
+    export PATH
+  fi
+}
 # The $PATH should be in zshenv, but can be reset in /etc/zprofile, so we also set it in .zprofile...
 # Without repeating ourselves.
-export GOENV_ROOT="$HOME/.goenv"
-export PATH="$GOENV_ROOT/bin:$PATH"
-eval "$(goenv init -)"
-export PATH="$GOROOT/bin:$PATH"
-export PATH="$PATH:$GOPATH/bin"
-
 if [[ -e /opt/homebrew/bin/brew ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi;
@@ -13,24 +18,52 @@ fi;
 # Be safe with MacOS paths.. yeah
 if [[ -e "${HOME}/Library/Python" ]]; then
   for entry in $(find "${HOME}/Library/Python" -maxdepth 2 -iname 'bin' -type d); do
-    export PATH="${entry}:${PATH}"
+    add2path "${entry}" "front"
   done
 fi
 
-if [[ -e "$HOME/.local/bin" ]];then
-  export PATH=~/.local/bin:$PATH
-fi
-if [[ -e "$HOME/go/bin" ]];then
-  export PATH=~/go/bin:${PATH}
+export NVM_DIR="$HOME/.nvm"
+export GOENV_ROOT="$HOME/.goenv"
+
+export PNPM_HOME="$HOME/.local/share/pnpm"
+
+add2path "$PNPM_HOME" "front"
+add2path "$GOENV_ROOT/bin" "front"
+export PATH
+
+if type goenv &>/dev/null;then
+  eval "$(goenv init -)"
 fi
 
-export NVM_DIR=~/.nvm
-if [[ -e "$HOME/.tfenv/bin" ]];then
-  export PATH=~/.tfenv/bin:$PATH
+
+add2path "$GOENV_ROOT/bin" "front"
+add2path "$GOPATH/bin"
+add2path "$HOME/.local/bin" "front" 
+add2path "$HOME/.tfenv/bin" "front" 
+add2path "$HOME/.pyenv/bin" "front" 
+add2path "$HOME/.rbenv/bin" "front" 
+if type pyenv &>/dev/null ;then
+  eval "$(pyenv init - zsh)"
+  eval "$(pyenv virtualenv-init - zsh)"
 fi
-if [[ -e "$HOME/.pyenv/bin" ]];then
-  export PATH=~/.pyenv/bin:$PATH
+
+if type rbenv &>/dev/null;then
+  eval "$(rbenv init - zsh)"
 fi
-if [[ -e "$HOME/.pyenv/shims" ]];then
-  export PATH=~/.pyenv/shims:$PATH
+if [[ -d "$NVM_DIR" ]];then
+
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+  export NVSHIM_AUTO_INSTALL=1
+
+  source <(npm completion)
 fi
+if [[ -e ~/.cargo/env ]];then
+  . ~/.cargo/env
+fi
+
+if [[ -e /usr/local/bin/aws_completer ]];then
+  complete -C '/usr/local/bin/aws_completer' aws
+fi
+

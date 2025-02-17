@@ -1,3 +1,5 @@
+# ~/.zshrc: This file is sourced for interactive shells, after /etc/zshrc.
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
@@ -71,7 +73,7 @@ CASE_SENSITIVE="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # plugins=(git aliases alias-finder ansible argocd autoenv aws branch brew colorize common-aliases docker-compose emoji encode64 extract fzf gh github git-prompt golang helm history jira kubectl man npm nvm pre-commit pyenv python rbenv rust ssh ssh-agent starship sublime sudo terraform timer tmux vscode web-search zsh-interactive-cd zsh-navigation-tools 1password)
-plugins=(git aws branch zsh-interactive-cd web-search history terraform tmux debian gnu-utils)
+plugins=(git aws branch zsh-interactive-cd web-search history terraform tmux debian gnu-utils copybuffer command-not-found)
 # add optional support for debian
 # add conditional import of gnu-utils
 
@@ -106,5 +108,5 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-source $HOME/.zpath
+
 source $HOME/.bash_aliases

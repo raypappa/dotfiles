@@ -1,3 +1,6 @@
+# ~/.zshenv: This file is always sourced, after /etc/zshenv. It should also
+# only contain environment variables that are needed by all shell instances.
+
 #export TERM=alacritty
 # Always respect history && histfile.
 export HISTFILE=~/.histfile
