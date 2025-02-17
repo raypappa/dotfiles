@@ -29,16 +29,15 @@ function _install_brew_packages() {
   # Terraform
   brew install -q \
     tflint \
-    tfenv \
+    tenv \
     terraform-docs
   # Python
   brew install -q \
     pyenv \
     poetry \
     pipx \
-    pyenv \
-    pipx \
-    pyenv-virtualenv
+    pyenv-virtualenv \
+    uv
   # Markdown
   brew install -q \
     glow \
@@ -47,10 +46,12 @@ function _install_brew_packages() {
   brew install -q \
     awscli \
     aws-sam-cli \
-    aws-vault
+    aws-vault \
+    rain
   # Kubernetes
   brew install -q \
-    kubectl
+    kubectl \
+    kubernetes-cli
   # Vim
   brew install -q \
     fzf \
@@ -73,6 +74,11 @@ function _install_brew_packages() {
   # Ruby
   brew install -q \
     rbenv
+  # Markdown
+  brew install -q  \
+    mdformat \
+    markdown-toc \
+    markdownlint
   # Others
   brew install -q \
     gcc \
@@ -82,7 +88,9 @@ function _install_brew_packages() {
     spaceship \
     zsh \
     go-task \
-    pre-commit
+    pre-commit \
+    lazygit \
+    ykman
 }
 
 function _install_brew() {
@@ -198,4 +206,22 @@ function _install_bash_it() {
   if [[ ! -d ~/.bash_it ]];then
     git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
   fi
+}
+
+function _setup_rust() {
+  if type rustup 2>/dev/null;then
+    rustup toolchain install stable
+    rustup default stable
+  fi
+}
+
+function _setup_goenv() {
+  if type goenv 2>/dev/null;then
+    goenv install latest
+    goenv global latest
+  fi
+}
+
+function _setup_vale() {
+  vale sync
 }

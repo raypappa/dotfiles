@@ -1,5 +1,11 @@
 # The $PATH should be in zshenv, but can be reset in /etc/zprofile, so we also set it in .zprofile...
 # Without repeating ourselves.
+export GOENV_ROOT="$HOME/.goenv"
+export PATH="$GOENV_ROOT/bin:$PATH"
+eval "$(goenv init -)"
+export PATH="$GOROOT/bin:$PATH"
+export PATH="$PATH:$GOPATH/bin"
+
 if [[ -e /opt/homebrew/bin/brew ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi;

@@ -330,8 +330,13 @@ esac
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
+source $HOME/.zsh-nvm/zsh-nvm.plugin.zsh
+
+export GOENV_ROOT="$HOME/.goenv"
+export PATH="$GOENV_ROOT/bin:$PATH"
+eval "$(goenv init -)"
+add2path "$GOENV_ROOT/bin" front
+add2path "$GOPATH/bin"
+
 export BASHRC_LOADED=1
 
-
-
-# krew path

@@ -170,9 +170,6 @@ return {
         -- Some languages (like typescript) have entire language plugins that can be useful:
         --    https://github.com/pmizio/typescript-tools.nvim
         --
-        -- But for many setups, the LSP (`tsserver`) will work just fine
-        -- tsserver = {},
-        --
 
         lua_ls = {
           -- cmd = {...},
@@ -202,9 +199,14 @@ return {
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format lua code
+        -- For Lua
+        'stylua',
+        'lua-language-server',
+        -- For awk
+        'awk-language-server',
+        -- For Cloudformation
+        'cfn-lint',
         -- For typescript.. ->rvn<-
-        'tsserver',
         'eslint_d',
         'prettierd',
         'eslint-lsp',
@@ -225,25 +227,48 @@ return {
         'markdownlint',
         'glow',
         'marksman',
+        'docformatter',
+        'markdown-toc',
+        'mdformat',
+        'mdsf',
+        'vale-ls',
         -- For python
         'black',
+        'jinja-lsp',
+        'bandit',
+        'mypy',
+        'pyright',
+        'ruff',
         -- Spellcheck
         'cspell',
         -- For json
         'jq',
         'json-lsp',
+        'jq-lsp',
+        'jsonlint',
         -- For bash
         'bash-language-server',
         -- For ruby
+        'rubyfmt',
         'ruby-lsp',
         -- Github CLI
         'gh',
         -- For yaml
         'yaml-language-server',
+        'yamllint',
+        'yq',
+        'yamlfmt',
         -- For terraform
         'terraform-ls',
+        'tflint',
+        'tfsec',
+        -- For sql
+        'sqlfmt',
+        'sqls',
         -- Others
         'spectral-language-server',
+        'trivy',
+        -- For toml
         'taplo',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
