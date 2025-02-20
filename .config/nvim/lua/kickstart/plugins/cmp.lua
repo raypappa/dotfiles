@@ -153,7 +153,7 @@ return {
       ['<S-Tab>'] = { 'select_prev', 'fallback' },
       ['<Tab>'] = { 'select_next', 'fallback' },
     },
-    cmdline = {},
+    cmdline = { enabled = false },
     sources = {
       default = { 'lsp', 'path', 'buffer', 'codecompanion', 'snippets', 'omni', 'spell' },
       providers = {

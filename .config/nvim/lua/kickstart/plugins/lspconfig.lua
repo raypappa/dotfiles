@@ -9,11 +9,11 @@ return {
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',       opts = {} },
 
       -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
       -- used for completion, annotations and signatures of Neovim apis
-      { 'folke/neodev.nvim', opts = {} },
+      { 'folke/neodev.nvim',       opts = {} },
     },
     config = function()
       -- Brief aside: **What is LSP?**
@@ -248,6 +248,7 @@ return {
         'jsonlint',
         -- For bash
         'bash-language-server',
+        'beautysh',
         -- For ruby
         'rubyfmt',
         'ruby-lsp',
@@ -262,6 +263,7 @@ return {
         'terraform-ls',
         'tflint',
         'tfsec',
+        'hclfmt',
         -- For sql
         'sqlfmt',
         'sqls',
