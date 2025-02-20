@@ -110,3 +110,9 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 source $HOME/.bash_aliases
+if [[ -e $HOME/.zaliases ]];then
+  source $HOME/.zaliases
+fi
+if [[ -e $HOME/.zaliases.local ]];then
+  source $HOME/.zaliases.local
+fi

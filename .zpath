@@ -44,6 +44,13 @@ add2path "$HOME/.pyenv/bin" "front"
 add2path "$HOME/.rbenv/bin" "front" 
 add2path "$HOME/.krew/bin" "front"
 add2path "$HOME/.git-plugins/bin" "front"
+
+export AUTOENV_VIEWER=less
+export AUTOENV_ASSUME_YES=1
+if [[ -e "$HOME/.autoenv/activate.sh" ]];then
+  . "$HOME/.autoenv/activate.sh"
+fi
+
 if type pyenv &>/dev/null ;then
   eval "$(pyenv init - zsh)"
   eval "$(pyenv virtualenv-init - zsh)"
