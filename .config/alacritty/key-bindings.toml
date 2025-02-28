@@ -1,12 +1,12 @@
 [[keyboard.bindings]]
 chars = "\u001Bb"
 key = "Left"
-mods = "Control"
+mods = "Alt"
 
 [[keyboard.bindings]]
 chars = "\u001Bf"
 key = "Right"
-mods = "Control"
+mods = "Alt"
 
 [[keyboard.bindings]]
 # Alt + B (Move backward one word)

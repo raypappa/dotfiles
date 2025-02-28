@@ -117,5 +117,3 @@ if [[ -e $HOME/.zaliases.local ]];then
   source $HOME/.zaliases.local
 fi
 
-# Added by `rbenv init` on Wed Feb 19 10:53:37 PM PST 2025
-eval "$(~/.rbenv/bin/rbenv init - --no-rehash zsh)"

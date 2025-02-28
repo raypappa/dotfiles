@@ -1,70 +1,75 @@
 #:schema https://mise.jdx.dev/schema/mise.json
 [tools]
+uv = ["latest"]
+aqua = "latest"
+ubi = "latest"
+
+# languages
 python = ["latest"]
 go = ["latest"]
 ruby = ["latest"]
-terraform = "latest"
+terraform = ["latest", "1.5.7", "0.13.7"]
 terragrunt = "latest"
 rust = ["latest"]
 node = ["latest"]
-aqua = "latest"
-aws-cli = "latest"
-aws-sam = "latest"
-1password = "latest"
-ansible = ["latest"]
-ansible-core = ["latest"]
-argocd = ["latest"]
-aws-vault = ["latest"]
-biome = ["latest"]
-black = ["latest"]
-ruff = ["latest"]
-pre-commit = ["latest"]
-cloudflared = ["latest"]
-coder = ["latest"]
-conform = ["latest"]
-fzf = ["latest"]
-docker-compose = ["latest"]
-fd = ["latest"]
-github-cli = ["latest"]
-glow = ["latest"]
+java = "latest"
 groovy = ["latest"]
-helm = ["latest"]
+
+# tools
+1password = ["latest"]
+aws-vault = "latest"
 kustomize = ["latest"]
-helm-ct = ["latest"]
-jq = ["latest"]
-k9s = ["latest"]
-krew = ["latest"]
-lazydocker = ["latest"]
-lazygit = ["latest"]
-markdownlint-cli2 = ["latest"]
-neovim = ["latest"]
-opentofu = ["latest"]
+helm = ["latest"]
 packer = ["latest"]
-pandoc = ["latest"]
-uv = ["latest"]
-rancher = ["latest"]
-ripgrep = ["latest"]
-semgrep = ["latest"]
-sentry = ["latest"]
-shellcheck = ["latest"]
-shfmt = ["latest"]
-task = ["latest"]
-terraform-docs = ["latest"]
-terraform-ls = ["latest"]
-terraform-validator = ["latest"]
-terrascan = ["latest"]
-tf-summarize = ["latest"]
-tflint = ["latest"]
-tfsec = ["latest"]
-tree-sitter = ["latest"]
-trivy = ["latest"]
-ubi = ["latest"]
-vale = ["latest"]
-xh = ["latest"]
-yamllint = ["latest"]
-yq = ["latest"]
-zig = ["latest"]
-ytt = ["latest"]
+krew = ["latest"]
+"ubi:aws-cloudformation/rain" = "latest"
+"pipx:awscliv2" = "latest"
+"pipx:b2" = { version = "latest", extras = "full" }
+"pipx:beautysh" = "latest"
+"ubi:cloudflare/cloudflared" = "latest"
+"go:github.com/royeo/git-checkout-branch" = "latest"
+"pipx:pre-commit" = "latest"
+"go:github.com/charmbracelet/glow" = "latest"
+"pipx:mdformat" = "latest"
+"ubi:junegunn/fzf" = "latest"
+"ubi:BurntSushi/ripgrep" = { version = "latest", exe = "rg" }
+"ubi:sharkdp/fd" = "latest"
+"ubi:tree-sitter/tree-sitter" = "latest"
+"ubi:mikefarah/yq" = "latest"
+"ubi:neovim/neovim" = { version = "latest", exe = "nvim" }
+"ubi:argoproj/argo-cd" = "latest"
+"npm:@biomejs/biome" = "latest"
+"ubi:coder/coder" = "latest"
+"ubi:siderolabs/conform" = "latest"
+"ubi:astral-sh/ruff" = "latest"
+"ubi:cli/cli" = { version = "latest", exe = "gh" }
+"ubi:helm/chart-testing" = { version = "latest", exe = "ct" }
+"ubi:jesseduffield/lazygit" = "latest"
+"ubi:jesseduffield/lazydocker" = "latest"
+"ubi:derailed/k9s" = "latest"
+"ubi:jqlang/jq" = "latest"
+"ubi:jgm/pandoc" = "latest"
+"ubi:patrickvane/shfmt" = "latest"
+"ubi:koalaman/shellcheck" = "latest"
+"ubi:go-task/task" = "latest"
+"npm:markdownlint-cli2" = "latest"
+"ubi:errata-ai/vale" = "latest"
+"ubi:aquasecurity/trivy" = "latest"
+"ubi:terraform-docs/terraform-docs" = "latest"
+"pipx:yamllint" = "latest"
+"ubi:opentofu/opentofu" = { version = "latest", exe = "tofu" }
+"ubi:carvel-dev/ytt" = "latest"
+"ubi:ducaale/xh" = "latest"
+"ubi:terraform-linters/tflint" = "latest"
+"ubi:tenable/terrascan" = "latest"
+"ubi:dineshba/tf-summarize" = "latest"
+terraform-ls = "latest"
+"ubi:rancher/cli" = { version = "latest", exe = "rancher" }
+
 
 [settings]
-disable_backends = ["pipx"]
+experimental = true
+
+
+[settings.pipx]
+uvx = true
