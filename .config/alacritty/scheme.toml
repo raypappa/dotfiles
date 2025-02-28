@@ -81,35 +81,3 @@ white = "#ffffff"
 ###############################################################################
 ################################ End of Color Schemes #########################
 ###############################################################################
-
-
-[[keyboard.bindings]]
-chars = "\u001Bb"
-key = "Left"
-mods = "Control"
-
-[[keyboard.bindings]]
-chars = "\u001Bf"
-key = "Right"
-mods = "Control"
-
-[scrolling]
-history = 100000
-
-[selection]
-semantic_escape_chars = ",│`|:\"' ()[]{}<>\t/"
-
-[window]
-dynamic_title = true
-opacity = 0.8
-startup_mode = "Maximized"
-
-[font.normal]
-family = "FiraMono Nerd Font Mono"
-[font.bold]
-family = "FiraMono Nerd Font Mono"
-style = "Bold"
-
-[general]
-live_config_reload = true
-
