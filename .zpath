@@ -22,58 +22,20 @@ if [[ -e "${HOME}/Library/Python" ]]; then
   done
 fi
 
-export NVM_DIR="$HOME/.nvm"
-export GOENV_ROOT="$HOME/.goenv"
-
-export PNPM_HOME="$HOME/.local/share/pnpm"
-
-add2path "$PNPM_HOME" "front"
-add2path "$GOENV_ROOT/bin" "front"
-export PATH
-
-if type goenv &>/dev/null;then
-  eval "$(goenv init -)"
-fi
 
 
-add2path "$GOENV_ROOT/bin" "front"
-add2path "$GOPATH/bin"
 add2path "$HOME/.local/bin" "front" 
-add2path "$HOME/.tfenv/bin" "front" 
-add2path "$HOME/.pyenv/bin" "front" 
-add2path "$HOME/.rbenv/bin" "front" 
 add2path "$HOME/.krew/bin" "front"
 add2path "$HOME/.git-plugins/bin" "front"
 add2path "$HOME/.git-extras/bin" "front"
-
-export AUTOENV_VIEWER=less
-export AUTOENV_ASSUME_YES=1
-if [[ -e "$HOME/.autoenv/activate.sh" ]];then
-  . "$HOME/.autoenv/activate.sh"
-fi
-
-if type pyenv &>/dev/null ;then
-  eval "$(pyenv init - zsh)"
-  eval "$(pyenv virtualenv-init - zsh)"
-fi
-
-if type rbenv &>/dev/null;then
-  eval "$(rbenv init - zsh)"
-fi
-if [[ -d "$NVM_DIR" ]];then
-
-  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-  [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-  export NVSHIM_AUTO_INSTALL=1
-
-  source <(npm completion)
-fi
-if [[ -e ~/.cargo/env ]];then
-  . ~/.cargo/env
-fi
 
 if [[ -e /usr/local/bin/aws_completer ]];then
   complete -C '/usr/local/bin/aws_completer' aws
 fi
 
+if type mise &>/dev/null;then
+  eval "$(mise activate zsh)"
+fi
+if [[ -e "$HOME/.zpath.local" ]];then
+  source "$HOME/.zpath.local"
+fi

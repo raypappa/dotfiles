@@ -155,44 +155,6 @@ export PROMPT_COMMAND='history -a'
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
-esac
-
-
-get_git_branch() {
-  local branch=$(git branch --no-color 2>/dev/null | grep '*' | colrm 1 2)
-  if [[ -n "$branch" ]];then
-    if [[ -n "$1" ]];then
-      echo -n " ($branch)"
-    else
-      echo -en " (${branch})"
-    fi
-  else
-    echo -n ""
-  fi
-}
-
-# For setting the terminal title
-_thing1=$'\e]0;'
-_thing2=$'\a'
-
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-  # We have color support; assume it's compliant with Ecma-48
-  # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-  # a case would tend to support setf rather than setaf.)
-  color_prompt=yes
-    else
-  color_prompt=
-    fi
-fi
 
 # leaving a note here about tput setaf 125 (this would generate color codes.)
 # there's also tput setf too which would be mostly for 8 colors vs xterm
@@ -202,19 +164,7 @@ fi
 
 # Using the polyglot for PS1 so this is just a sane default.
 PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-unset color_prompt force_color_prompt
 
-# This is here but i've not see this code triggered in so so long.
-# # If this is an xterm set the title to user@host:dir
-# case "$TERM" in
-# xterm*|rxvt*)
-#     PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-#     ;;
-# *)
-#     ;;
-# esac
-
-# Load Bash It
 if [[ -e "$BASH_IT"/bash_it.sh ]];then
   source "$BASH_IT"/bash_it.sh
 fi
@@ -258,9 +208,6 @@ if [[ -e "${HOME}/Library/Python" ]]; then
   done
 fi
 
-export GOENV_ROOT="$HOME/.goenv"
-export NVM_DIR="$HOME/.nvm"
-
 for brew_prefix in /opt/homebrew /usr/local /home/linuxbrew/.linuxbrew; do
   if [[ -e "$brew_prefix/bin/brew" ]];then
     eval "$($brew_prefix/bin/brew shellenv)"
@@ -268,47 +215,18 @@ for brew_prefix in /opt/homebrew /usr/local /home/linuxbrew/.linuxbrew; do
 done
 
 add2path "$HOME/.local/bin" front
-add2path "$HOME/.tfenv/bin" front
-add2path "$HOME/.pyenv/bin" front
-add2path "$HOME/.rbenv/bin" front
-add2path "$GOENV_ROOT/bin" front
 add2path "${KREW_ROOT:-$HOME/.krew}/bin" front
-
-if type pyenv &>/dev/null ;then
-  eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
-fi
-
-if type rbenv &>/dev/null;then
-  eval "$(rbenv init - bash)"
-fi
-
-# goenv support
-if [ -d "$GOENV_ROOT" ];then
-  eval "$(goenv init -)"
-fi
-
-if [[ -d "$NVM_DIR" ]];then
-
-  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-  [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-  export NVSHIM_AUTO_INSTALL=1
-
-  source <(npm completion)
-fi
-
 add2path /c/opscode/chefdk/bin
 
 ###############################################################################
 
 # If we're in the /mnt/c system go home
 if [[ "$(pwd)" == '/mnt/c'* ]];then
-  cd ~
+  cd "$HOME"
 fi
 
 if [[ -e ~/.cargo/env ]];then
-  . ~/.cargo/env
+  . "$HOME/.cargo/env"
 fi
 
 if [[ -e /usr/local/bin/aws_completer ]];then
@@ -319,24 +237,15 @@ if [[ -d ~/.local/share/bash-completion ]];then
   for file in $(find ~/.local/share/bash-completion -maxdepth 1 -name '*.sh' -type f -print -quit); do source $file; done
 fi
 
-# pnpm
-export PNPM_HOME="$HOME/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
-source $HOME/.zsh-nvm/zsh-nvm.plugin.zsh
 
-export GOENV_ROOT="$HOME/.goenv"
-export PATH="$GOENV_ROOT/bin:$PATH"
-eval "$(goenv init -)"
-add2path "$GOENV_ROOT/bin" front
-add2path "$GOPATH/bin"
+
+if type mise &>/dev/null;then
+  eval "$(mise activate bash)"
+fi
 
 export BASHRC_LOADED=1
 
