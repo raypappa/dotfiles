@@ -36,3 +36,6 @@ fi
 if type mise &>/dev/null;then
   eval "$(mise activate zsh)"
 fi
+if [[ -e "$HOME/.zpath.local" ]];then
+  source "$HOME/.zpath.local"
+fi

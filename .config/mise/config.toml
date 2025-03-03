@@ -7,10 +7,10 @@ ubi = "latest"
 # languages
 python = ["latest"]
 go = ["latest"]
-ruby = ["latest"]
+ruby = "latest"
 terraform = ["latest", "1.5.7", "0.13.7"]
 terragrunt = "latest"
-rust = ["latest"]
+rust = "latest"
 node = ["latest"]
 java = "latest"
 groovy = ["latest"]
@@ -36,7 +36,6 @@ krew = ["latest"]
 "ubi:sharkdp/fd" = "latest"
 "ubi:tree-sitter/tree-sitter" = "latest"
 "ubi:mikefarah/yq" = "latest"
-"ubi:neovim/neovim" = { version = "latest", exe = "nvim" }
 "ubi:argoproj/argo-cd" = "latest"
 "npm:@biomejs/biome" = "latest"
 "ubi:coder/coder" = "latest"
@@ -65,6 +64,17 @@ krew = ["latest"]
 "ubi:dineshba/tf-summarize" = "latest"
 terraform-ls = "latest"
 "ubi:rancher/cli" = { version = "latest", exe = "rancher" }
+tmux = "latest"
+"npm:yaml-language-server" = "latest"
+"pipx:markdown-toc" = "latest"
+"npm:cdktf" = "latest"
+neovim = "latest"
+"go:github.com/bschaatsbergen/hclfmt" = "latest"
+"go:github.com/segmentio/golines" = "latest"
+"go:golang.org/x/tools/cmd/goimports" = "latest"
+lua = "latest"
+cargo-binstall = "latest"
+rust-analyzer = "latest"
 
 
 [settings]
