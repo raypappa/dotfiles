@@ -75,6 +75,17 @@ neovim = "latest"
 lua = "latest"
 cargo-binstall = "latest"
 rust-analyzer = "latest"
+"ubi:antonmedv/fx" = "latest"
+"ubi:dandavison/delta" = "latest"
+"go:github.com/dundee/gdu" = "latest"
+"ubi:wtfutil/wtf" = { version = "latest", exe = "wtfutil", rename_exe = "wtf" }
+"go:github.com/akavel/up" = "latest"
+"pipx:visidata" = "latest"
+"go:github.com/wagoodman/dive" = "latest"
+"ubi:mk-5/fjira" = "latest"
+awscli = "latest"
+"ubi:charmbracelet/gum" = "latest"
+"ubi:google/yamlfmt" = "latest"
 
 
 [settings]
