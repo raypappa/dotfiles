@@ -89,6 +89,7 @@ awscli = "latest"
 "pipx:aider-chat" = {version = "latest", exe = "aider", uvx_args = "--force --python python3.12"}
 ninja = "latest"
 cmake = "latest"
+"go:github.com/craftamap/bb" = "latest"
 
 [settings]
 experimental = true
