@@ -108,6 +108,10 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+if type starship 2>&1 >/dev/null;
+  eval "$(starship init zsh)"
+fi
+
 source $HOME/.bash_aliases
 if [[ -e $HOME/.zaliases ]];then
   source $HOME/.zaliases
