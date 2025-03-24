@@ -108,7 +108,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-if type starship 2>&1 >/dev/null;
+if type starship 2>&1 >/dev/null; then
   eval "$(starship init zsh)"
 fi
 

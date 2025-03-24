@@ -86,13 +86,14 @@ rust-analyzer = "latest"
 awscli = "latest"
 "ubi:charmbracelet/gum" = "latest"
 "ubi:google/yamlfmt" = "latest"
-"pipx:aider-chat" = {version = "latest", exe = "aider", uvx_args = "--force --python python3.12"}
+"pipx:aider-chat" = { version = "latest", exe = "aider", uvx_args = "--force --python python3.12" }
 ninja = "latest"
 cmake = "latest"
 "go:github.com/craftamap/bb" = "latest"
 "ubi:https://gitlab.com/gitlab-org/cli" = { version = "latest", exe = "glab" }
 direnv = "latest"
 starship = "latest"
+"pipx:thefuck" = { version = "latest", uvx_args = "--with setuptools" }
 
 [settings]
 experimental = true
