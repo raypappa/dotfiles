@@ -4,6 +4,10 @@
 
 set -e
 
+curl https://mise.run | sh
+
+mise install
+
 # Build alacritty toml
 cp "$HOME/.config/alaciritty/alacritty.base.toml" "$HOME/.config/alacritty.toml"
 if [[ "$(uname -s)" == "Darwin" ]];then
