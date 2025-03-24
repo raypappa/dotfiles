@@ -72,8 +72,7 @@ CASE_SENSITIVE="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-# plugins=(git aliases alias-finder ansible argocd autoenv aws branch brew colorize common-aliases docker-compose emoji encode64 extract fzf gh github git-prompt golang helm history jira kubectl man npm nvm pre-commit pyenv python rbenv rust ssh ssh-agent starship sublime sudo terraform timer tmux vscode web-search zsh-interactive-cd zsh-navigation-tools 1password)
-plugins=(git aws branch zsh-interactive-cd web-search history terraform tmux debian gnu-utils copybuffer command-not-found zsh-interactive-cd jira pre-commit brew zsh-aws-vault)
+plugins=(1password alias-finder aliases ansible argocd autoenv aws branch brew colorize command-not-found common-aliases copybuffer debian docker-compose emoji encode64 extract fzf gh git git-prompt github gnu-utils golang helm history jira kubectl man npm nvm pre-commit pyenv python rbenv rust ssh ssh-agent starship sublime sudo terraform timer tmux vscode web-search zsh-aws-vault zsh-interactive-cd zsh-navigation-tools)
 # add optional support for debian
 # add conditional import of gnu-utils
 
