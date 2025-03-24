@@ -91,6 +91,7 @@ ninja = "latest"
 cmake = "latest"
 "go:github.com/craftamap/bb" = "latest"
 "ubi:https://gitlab.com/gitlab-org/cli" = { version = "latest", exe = "glab" }
+direnv = "latest"
 
 [settings]
 experimental = true
