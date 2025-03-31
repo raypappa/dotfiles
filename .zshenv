@@ -34,6 +34,14 @@ while sleep 1; do mpv -fs "$(find . -mindepth 1 -type f | sort -R | tail -n 1)" 
 done
 }
 
+if uname -r | grep -iq wsl;then
+  export BROWSER=wslview
+fi
+
+if [[ -e $HOME/.zshenv.local ]];then
+  source $HOME/.zshenv.local
+fi
+
 export EDITOR=nvim
 export VISUAL=nvim
 
