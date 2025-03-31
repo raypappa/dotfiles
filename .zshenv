@@ -34,8 +34,6 @@ while sleep 1; do mpv -fs "$(find . -mindepth 1 -type f | sort -R | tail -n 1)" 
 done
 }
 
-source $HOME/.zsh-nvm/zsh-nvm.plugin.zsh
-
 export EDITOR=nvim
 export VISUAL=nvim
 
